@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-class Tex_convertible
+class TeX_convertible
 {
 public:
 	virtual std::string convert() const;

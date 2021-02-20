@@ -6,28 +6,54 @@
 /*   By: dnicki <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:19:34 by dnicki            #+#    #+#             */
-/*   Updated: 2021/02/18 22:07:32 by dnicki           ###   ########.fr       */
+/*   Updated: 2021/02/19 19:26:47 by dnicki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Matrix_square.cpp"
+#include "Matrix_square.h"
 #include <stdlib.h>
+#include <exception>
+#include <string>
 
-Matrix_square::Matrix_square()
+void	Matrix_square::free_mem()
 {
-	this->arr = NULL;
-	this->size = 0;
+	for (int i = 0; i < size && arr && arr[i]; i++)
+		delete[] arr[i];
+	if (arr)
+		delete[] arr;
+	arr = NULL;
+	size = 0;
 }
 
-Matrix_square::Matrix_square(Matrix_square matr)
+void	Matrix_square::alloc_mem()
 {
-	this->size = matr.size
 	if (size == 0)
+		return ;
+	arr = new double*[size];
+	if (!arr)
+		return;
+	for (int i = 0; i < size; i++)
 	{
-		this->arr = NULL;
+		if (!(arr[i] = new double[size]))
+		{
+			free_mem();
+			return;
+		}				
 	}
-	else
+}
+
+std::ostream&	operator<<(std::ostream& fout, Matrix_square &matr)
+{
+	for (int i = 0; i < matr.size; i++)
 	{
-		this_arr = new 
+		for (int j = 0; j < matr.size; j++)
+		{
+			fout << matr[i][j];
+			if (j != matr.size - 1)
+				fout << " ";
+		}
+		fout << std::endl;
 	}
+	fout << std::endl;
+	return (fout);
 }
