@@ -32,6 +32,8 @@ public:
 	Matrix_square(std::vector <std::vector <double> > vec);
 	~Matrix_square();
 
+
+	Matrix_square&			operator=(Matrix_square &matr);
 	double*					operator[](int i); //+
 	Matrix_square			operator+(Matrix_square &matr); //+
 	Matrix_square			operator-(Matrix_square &matr); //+

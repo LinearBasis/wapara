@@ -7,8 +7,8 @@ int		main()
 {
 	Matrix_square a;
 
-	std::ifstream	f("file.txt");
+	std::ifstream	f("out.txt");
 	f >> a;
-	std::ofstream	o("out.txt");
+	std::ofstream	o("2out.txt");
 	o << a;
 }

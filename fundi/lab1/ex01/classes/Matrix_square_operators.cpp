@@ -4,12 +4,26 @@
 #include <string>
 #include <iostream>
 
+Matrix_square&	Matrix_square::operator=(Matrix_square &matr)
+{	
+	if (arr == NULL)
+		free_mem();
+	size = matr.size;
+	alloc_mem();
+	if (arr == NULL && matr.size != 0)
+		throw	std::bad_alloc();
+	for (int i = 0; i < size; i++)
+		for (int j = 0; j < size; j++)
+			arr[i][j] = matr[i][j];
+	return (*this);
+}
+
 double*		Matrix_square::operator[](int i)
 {
 	return (arr[i]);
 }
 
-Matrix_square Matrix_square::operator+(Matrix_square &matr)
+Matrix_square	Matrix_square::operator+(Matrix_square &matr)
 {
 	Matrix_square c;
 
@@ -149,7 +163,6 @@ static int		is_good_input(std::istream& fin)
 				while (tmp[i] == ' ')
 					i++;
 			}
-			
 		}
 		if (nums == -1)
 			nums = tmp_n;
@@ -164,7 +177,6 @@ static int		is_good_input(std::istream& fin)
 		throw std::invalid_argument("Wrong matrix format in fin");
 	fin.seekg(0, std::ios::beg);
     fin.clear();
-    std::cout << "ENDED 165" << std::endl;
     return (rows);
 }
 
@@ -177,17 +189,15 @@ std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
 	double tmp_d;
 	for (int i = 0; i < rows; i++)
 	{
-        std::cout << "ENDED 179" << std::endl;
 		std::vector <double>	tmp_vec(rows);
-		std::cout << "ENDED 181" << std::endl;
         for (int j = 0; j < rows; j++)
         {
-			fin >> tmp_vec[i];
-            std::cout << tmp_vec[i];
+			fin >> tmp_vec[j];
+            std::cout << tmp_vec[j];
         }
 		matrix.push_back(tmp_vec);
-      	std::cout << "ENDED 188" << std::endl;
 	}
-	matr = Matrix_square(matrix);
+	Matrix_square asd(matrix);
+	matr = asd;
 	return (fin);
 }

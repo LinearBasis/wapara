@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <exception>
 #include <string>
+#include <iostream>
 
 Matrix_square::Matrix_square()
 {
@@ -44,7 +45,7 @@ Matrix_square::Matrix_square(unsigned int size_)
 
 Matrix_square::Matrix_square(std::vector <std::vector <double> > vec)
 {
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < vec.size(); i++)
 	{
 		if (vec[i].size() != vec.size())
 		{
@@ -58,13 +59,17 @@ Matrix_square::Matrix_square(std::vector <std::vector <double> > vec)
     for (int i = 0; i < size; i++)
     {
         for (int j = 0; j < size; j++)
+		{
             arr[i][j] = vec[i][j];
+			std::cout << arr[i][j] << std::endl;
+		}
     }
 }
 
 Matrix_square::~Matrix_square()
 {
 	free_mem();
+	std::cout << "Destructor was called" << std::endl;
 }
 
 
