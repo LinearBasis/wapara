@@ -54,16 +54,16 @@ Matrix_square::Matrix_square(std::vector <std::vector <double> > vec)
 			return ;
 		}
 	}
-    size = vec.size();
-    alloc_mem();
-    for (int i = 0; i < size; i++)
-    {
-        for (int j = 0; j < size; j++)
+	size = vec.size();
+	alloc_mem();
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < size; j++)
 		{
-            arr[i][j] = vec[i][j];
+			arr[i][j] = vec[i][j];
 			std::cout << arr[i][j] << std::endl;
 		}
-    }
+	}
 }
 
 Matrix_square::~Matrix_square()

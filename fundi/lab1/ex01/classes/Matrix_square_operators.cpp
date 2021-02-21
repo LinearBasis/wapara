@@ -39,7 +39,7 @@ Matrix_square	Matrix_square::operator+(Matrix_square &matr)
 	return (c);
 }
 
-Matrix_square Matrix_square::operator-(Matrix_square &matr)
+Matrix_square	Matrix_square::operator-(Matrix_square &matr)
 {	
 	Matrix_square c;
 
@@ -108,15 +108,13 @@ Matrix_square			Matrix_square::operator*(double num)
 
 Matrix_square	operator*(double num, Matrix_square &matr)
 {
-	Matrix_square						c;
+	Matrix_square	c(matr);
 
-	c.size = matr.size;
-	c.alloc_mem();
 	if (!c.arr)
 		throw std::bad_alloc();
 	for (int i = 0; i < matr.size; i++)
 		for (int j = 0; j < matr.size; j++)
-			c[i][j] = matr[i][j] * num;
+			c[i][j] *= num;
 	return (c);
 }
 
@@ -150,26 +148,20 @@ static int		is_good_input(std::istream& fin)
 		tmp_n = 0;
 		std::getline(fin, tmp);
 		if (tmp[0] == 0)
-		{
 			break ;
-		}
 		if (tmp[tmp.size() - 1] == ' ')
 			throw	std::invalid_argument("Wrong matrix format in fin");
 		for (int i = 0; i < tmp.size(); i++)
-		{
 			if (tmp[i] == ' ')
 			{
 				tmp_n++;
 				while (tmp[i] == ' ')
 					i++;
 			}
-		}
 		if (nums == -1)
 			nums = tmp_n;
 		else if (nums != tmp_n)
-		{
 			throw	std::invalid_argument("Wrong matrix format in fin");
-		}
 		rows++;
 	}
 	nums++;
@@ -197,7 +189,22 @@ std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
         }
 		matrix.push_back(tmp_vec);
 	}
-	Matrix_square asd(matrix);
-	matr = asd;
+	matr = Matrix_square(matrix);
 	return (fin);
+}
+
+std::ostream&	operator<<(std::ostream& fout, Matrix_square &matr)
+{
+	for (int i = 0; i < matr.size; i++)
+	{
+		for (int j = 0; j < matr.size; j++)
+		{
+			fout << matr[i][j];
+			if (j != matr.size - 1)
+				fout << " ";
+		}
+		fout << std::endl;
+	}
+	fout << std::endl;
+	return (fout);
 }

@@ -43,8 +43,6 @@ public:
 	friend Matrix_square	operator*(double num, Matrix_square &matr); //+
 	Matrix_square			operator/(double num); //+
 
-
-
 	friend std::ostream&	operator<<(std::ostream& fout, Matrix_square &matr); //+
 	friend std::istream&	operator>>(std::istream& fin, Matrix_square &matr);
 

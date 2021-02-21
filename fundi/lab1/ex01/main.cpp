@@ -1,8 +1,8 @@
 //#include "classes/TeX_convertible.h"
 #include "classes/Matrix_square.h"
-
 #include <iostream>
 #include <fstream>
+
 int		main()
 {
 	Matrix_square a;
@@ -10,5 +10,8 @@ int		main()
 	std::ifstream	f("out.txt");
 	f >> a;
 	std::ofstream	o("2out.txt");
-	o << a;
+	Matrix_square b;
+
+	b = a * 2;
+	o << b;
 }
