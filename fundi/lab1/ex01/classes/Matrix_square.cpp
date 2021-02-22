@@ -44,19 +44,3 @@ void	Matrix_square::alloc_mem()
 		}				
 	}
 }
-
-std::ostream&	operator<<(std::ostream& fout, Matrix_square &matr)
-{
-	for (int i = 0; i < matr.size; i++)
-	{
-		for (int j = 0; j < matr.size; j++)
-		{
-			fout << matr[i][j];
-			if (j != matr.size - 1)
-				fout << " ";
-		}
-		fout << std::endl;
-	}
-	fout << std::endl;
-	return (fout);
-}

@@ -44,12 +44,12 @@ public:
 	Matrix_square			operator/(double num); //+
 
 	friend std::ostream&	operator<<(std::ostream& fout, Matrix_square &matr); //+
-	friend std::istream&	operator>>(std::istream& fin, Matrix_square &matr);
+	friend std::istream&	operator>>(std::istream& fin, Matrix_square &matr); //+
 
-	bool					operator==(const Matrix_square &matr);
-	bool					operator!=(const Matrix_square &matr);
+	bool					operator==(Matrix_square &matr); //+
+	bool					operator!=(Matrix_square &matr); //+
 
-	friend double			det(const Matrix_square &matr);
+	friend double			det(Matrix_square &matr); 
 	friend Matrix_square	inv_matrix(const Matrix_square &matr);
 	friend Matrix_square	trans_matrix(const Matrix_square &matr);
 	friend double			trace(const Matrix_square &matr);

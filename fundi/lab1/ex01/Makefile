@@ -4,11 +4,15 @@ MAIN = main.cpp
 
 CC = g++
 
-SRCS = classes/Matrix_square.cpp\
-	   classes/Matrix_square_operators.cpp\
-	   classes/Matrix_square_constructors.cpp
+SRCS_CLASSES_ = Matrix_square.cpp\
+	   Matrix_square_operators.cpp\
+	   Matrix_square_constructors.cpp
 
-OBJS = $(SRCS:.cpp=.o)
+SRCS_CLASSES = $(addprefix classes/, $(SRCS_CLASSES_))
+
+OBJS_CLASSES=$(SRCS_CLASSES:.cpp=.o)
+
+OBJS = $(OBJS_CLASSES)
 
 .cpp.o:
 	$(CC) -c -o $@ $<

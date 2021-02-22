@@ -7,11 +7,10 @@ int		main()
 {
 	Matrix_square a;
 
-	std::ifstream	f("out.txt");
-	f >> a;
-	std::ofstream	o("2out.txt");
-	Matrix_square b;
 
-	b = a * 2;
-	o << b;
+		std::ifstream	f("in.txt");
+		f >> a;
+		std::ofstream	o("out.txt");
+		std::cout << det(a) << " - det " <<std::endl;
+		o << a;
 }
