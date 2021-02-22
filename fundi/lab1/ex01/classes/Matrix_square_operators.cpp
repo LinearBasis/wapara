@@ -4,9 +4,9 @@
 #include <string>
 #include <iostream>
 
-Matrix_square&	Matrix_square::operator=(Matrix_square &matr)
-{	
-	if (arr == NULL)
+Matrix_square&	Matrix_square::operator=(const Matrix_square &matr)
+{
+	if (arr != NULL)
 		free_mem();
 	size = matr.size;
 	alloc_mem();
@@ -18,12 +18,12 @@ Matrix_square&	Matrix_square::operator=(Matrix_square &matr)
 	return (*this);
 }
 
-double*		Matrix_square::operator[](int i)
+double*		Matrix_square::operator[](int i) const
 {
 	return (arr[i]);
 }
 
-Matrix_square	Matrix_square::operator+(Matrix_square &matr)
+Matrix_square	Matrix_square::operator+(const Matrix_square &matr) const
 {
 	Matrix_square c;
 
@@ -39,7 +39,7 @@ Matrix_square	Matrix_square::operator+(Matrix_square &matr)
 	return (c);
 }
 
-Matrix_square	Matrix_square::operator-(Matrix_square &matr)
+Matrix_square	Matrix_square::operator-(const Matrix_square &matr) const
 {	
 	Matrix_square c;
 
@@ -57,7 +57,7 @@ Matrix_square	Matrix_square::operator-(Matrix_square &matr)
 	return (c);
 }
 
-Matrix_square	Matrix_square::operator-()
+Matrix_square	Matrix_square::operator-() const
 {
 	Matrix_square c;
 
@@ -73,7 +73,7 @@ Matrix_square	Matrix_square::operator-()
 	return (c);
 }
 
-Matrix_square			Matrix_square::operator*(Matrix_square &matr)
+Matrix_square			Matrix_square::operator*(const Matrix_square &matr) const
 {
 	Matrix_square						c;
 
@@ -92,7 +92,7 @@ Matrix_square			Matrix_square::operator*(Matrix_square &matr)
 	return (c);
 }
 
-Matrix_square			Matrix_square::operator*(double num)
+Matrix_square			Matrix_square::operator*(double num) const
 {
 	Matrix_square						c;
 
@@ -106,7 +106,7 @@ Matrix_square			Matrix_square::operator*(double num)
 	return (c);
 }
 
-Matrix_square	operator*(double num, Matrix_square &matr)
+Matrix_square	operator*(double num, const Matrix_square &matr)
 {
 	Matrix_square	c(matr);
 
@@ -118,7 +118,7 @@ Matrix_square	operator*(double num, Matrix_square &matr)
 	return (c);
 }
 
-Matrix_square			Matrix_square::operator/(double num)
+Matrix_square			Matrix_square::operator/(double num) const
 {
 	Matrix_square						c;
 
@@ -148,7 +148,6 @@ static int		is_good_input(std::istream& fin)
 	while (std::getline(fin, tmp) && tmp[0] != 0)
 	{
 		tmp_n = 0;
-		std::cout << tmp << std::endl;
 		if (tmp[tmp.size() - 1] == ' ')
 			throw	std::invalid_argument("Wrong matrix format in fin");
 		for (int i = 0; i < tmp.size(); i++)
@@ -162,20 +161,14 @@ static int		is_good_input(std::istream& fin)
 		if (nums == -1)
 			nums = tmp_n;
 		else if (nums != tmp_n || rows > nums)
-		{
-			std::cout << rows << " " << nums << std::endl;
 			throw	std::invalid_argument("Wrong matrix format in fin");
-		}
 		rows++;
 	}
 	fin.clear();
 	fin.seekg(pos, std::ios_base::beg);
-	std::cout << pos << " " << fin.tellg() << std::endl;
-
 	nums++;
 	if (rows != nums)
 		throw std::invalid_argument("Wrong matrix format in fin");
-	std::cout << rows << " " << nums << std::endl;
     return (rows);
 }
 
@@ -185,36 +178,24 @@ std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
 	int									rows;
 	std::string tmp;
 
-	try
+	rows = is_good_input(fin);
+	for (int i = 0; i < rows; i++)
 	{
-		rows = is_good_input(fin);
-		for (int i = 0; i < rows; i++)
-		{
-			std::vector <double>	tmp_vec(rows);
-			for (int j = 0; j < rows; j++)
-			{
-				fin >> tmp_vec[j];
-				std::cout << tmp_vec[j];
-			}
-			matrix.push_back(tmp_vec);
-		}
-		Matrix_square abc(matrix);
-		matr = abc;
-		return (fin);
+		std::vector <double>	tmp_vec(rows);
+		for (int j = 0; j < rows; j++)
+			fin >> tmp_vec[j];
+		
+		matrix.push_back(tmp_vec);
 	}
-	catch(std::exception &ex)
-	{
-		std::cout << ex.what() << std::endl;
-		return (fin);
-	}
+	Matrix_square abc(matrix);
+	matr = abc;
+	return (fin);
 }
 
-std::ostream&	operator<<(std::ostream& fout, Matrix_square &matr)
+std::ostream&	operator<<(std::ostream& fout, const Matrix_square &matr)
 {
 	if (matr.size == 0)
-	{
 		fout << "ZERO MATRIX" << std::endl;
-	}
 	for (int i = 0; i < matr.size; i++)
 	{
 		for (int j = 0; j < matr.size; j++)
@@ -229,7 +210,7 @@ std::ostream&	operator<<(std::ostream& fout, Matrix_square &matr)
 	return (fout);
 }
 
-bool			Matrix_square::operator==(Matrix_square &matr)
+bool			Matrix_square::operator==(const Matrix_square &matr) const
 {
 	if (matr.size != size)
 		return (false);
@@ -240,7 +221,7 @@ bool			Matrix_square::operator==(Matrix_square &matr)
 	return (true);
 }
 
-bool			Matrix_square::operator!=(Matrix_square &matr)
+bool			Matrix_square::operator!=(const Matrix_square &matr) const
 {
 	return (!(matr == *this));
 }

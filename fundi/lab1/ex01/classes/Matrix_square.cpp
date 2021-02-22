@@ -31,7 +31,6 @@ void	Matrix_square::alloc_mem()
 	if (size == 0)
 		return ;
 	arr = new double*[size];
-	std::cout << "In alloc, size = " << size << std::endl;
 	if (!arr)
 		return;
 	for (int i = 0; i < size; i++)
@@ -39,7 +38,6 @@ void	Matrix_square::alloc_mem()
 		if (!(arr[i] = new double[size]))
 		{
 			free_mem();
-			std::cout << "error, arr = " << arr << std::endl;
 			return;
 		}				
 	}

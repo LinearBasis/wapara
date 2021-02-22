@@ -26,28 +26,28 @@ private:
 
 public:
 	Matrix_square(); //+
-	Matrix_square(Matrix_square &matr); //+
+	Matrix_square(const Matrix_square &matr); //+
 	Matrix_square(const double **arr_, unsigned int size_); //+
 	Matrix_square(unsigned int size_);
 	Matrix_square(std::vector <std::vector <double> > vec);
 	~Matrix_square();
 
 
-	Matrix_square&			operator=(Matrix_square &matr);
-	double*					operator[](int i); //+
-	Matrix_square			operator+(Matrix_square &matr); //+
-	Matrix_square			operator-(Matrix_square &matr); //+
-	Matrix_square			operator-(); //+
-	Matrix_square			operator*(Matrix_square &matr); //+
-	Matrix_square			operator*(double num); //+
-	friend Matrix_square	operator*(double num, Matrix_square &matr); //+
-	Matrix_square			operator/(double num); //+
+	Matrix_square&			operator=(const Matrix_square &matr);
+	double*					operator[](int i) const; //+
+	Matrix_square			operator+(const Matrix_square &matr) const; //+
+	Matrix_square			operator-(const Matrix_square &matr) const; //+
+	Matrix_square			operator-() const; //+
+	Matrix_square			operator*(const Matrix_square &matr) const; //+
+	Matrix_square			operator*(double num) const; //+
+	friend Matrix_square	operator*(double num, const Matrix_square &matr); //+
+	Matrix_square			operator/(double num) const; //+
 
-	friend std::ostream&	operator<<(std::ostream& fout, Matrix_square &matr); //+
+	friend std::ostream&	operator<<(std::ostream& fout, const Matrix_square &matr); //+
 	friend std::istream&	operator>>(std::istream& fin, Matrix_square &matr); //+
 
-	bool					operator==(Matrix_square &matr); //+
-	bool					operator!=(Matrix_square &matr); //+
+	bool					operator==(const Matrix_square &matr) const; //+
+	bool					operator!=(const Matrix_square &matr)const; //+
 
 	friend double			det(Matrix_square &matr); 
 	friend Matrix_square	inv_matrix(const Matrix_square &matr);

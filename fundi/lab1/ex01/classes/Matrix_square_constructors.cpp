@@ -10,7 +10,7 @@ Matrix_square::Matrix_square()
 	size = 0;
 }
 
-Matrix_square::Matrix_square(Matrix_square &matr)
+Matrix_square::Matrix_square(const Matrix_square &matr)
 {
 	size = matr.size;
 	alloc_mem();
@@ -69,7 +69,6 @@ Matrix_square::Matrix_square(std::vector <std::vector <double> > vec)
 Matrix_square::~Matrix_square()
 {
 	free_mem();
-	std::cout << "Destructor was called" << std::endl;
 }
 
 
