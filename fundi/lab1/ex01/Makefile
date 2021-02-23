@@ -4,21 +4,30 @@ MAIN = main.cpp
 
 CC = g++
 
-SRCS_CLASSES_ = Matrix_square.cpp\
-	   Matrix_square_operators.cpp\
-	   Matrix_square_constructors.cpp
+CFLAGS = -Wall -Wextra -Werror
 
-SRCS_CLASSES = $(addprefix classes/, $(SRCS_CLASSES_))
+SRCS_DIRS = ./classes .
 
-OBJS_CLASSES=$(SRCS_CLASSES:.cpp=.o)
+OBJS_DIR = ./objs
 
-OBJS = $(OBJS_CLASSES)
+SRCS = $(wildcard $(addsuffix /*.cpp, $(SRCS_DIRS)))
 
-.cpp.o:
-	$(CC) -c -o $@ $<
+OBJS = $(addprefix objs/, $(notdir $(patsubst %.cpp, %.o, $(SRCS))))
+
+VPATH = $(SRCS_DIRS)
+
+$(OBJS_DIR)/%.o: %.cpp
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MAIN)
-	$(CC) $(OBJS) $(MAIN)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all

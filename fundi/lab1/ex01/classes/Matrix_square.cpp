@@ -11,10 +11,7 @@
 /* ************************************************************************** */
 
 #include "Matrix_square.h"
-#include <stdlib.h>
-#include <exception>
-#include <string>
-#include <iostream>
+
 
 void	Matrix_square::free_mem()
 {
@@ -41,4 +38,16 @@ void	Matrix_square::alloc_mem()
 			return;
 		}				
 	}
+}
+
+void			Matrix_square::E(int size_)
+{
+	size = size_;
+	alloc_mem();
+	if (!arr)
+		throw std::bad_alloc();
+	for (int i = 0; i < size; i++)
+		for (int j = 0; j < size; j++)
+			arr[i][j] = (i == j);
+	std::cout << *this;
 }
