@@ -9,6 +9,6 @@ int		main()
 	std::string		asd;
 
 	std::ifstream	f("in.txt");
-	// f >> a;
-	std::cout << det(a) << std::endl;
+	f >> a;
+	std::cout << trace(a) << std::endl;
 }

@@ -1,4 +1,5 @@
 #include "Matrix_square.h"
+#include <cmath>
 
 static void			swap(double *arr1, double *arr2, int size)
 {
@@ -22,7 +23,7 @@ double			det(Matrix_square &matr)
 	sign = 1;
 	det = 1;
 	if (matr.size == 0)
-		return (0);
+		return (NAN);
 	for (int i = 0; i < matr.size; i++)
 		for (int j = i + 1; j < matr.size; j++)
 		{
@@ -32,7 +33,7 @@ double			det(Matrix_square &matr)
 					{
 						swap(copy[l], copy[i], matr.size);
 						sign *= -1;
-						break;
+						break ;
 					}
 			if (copy[i][i] == 0)
 				return (0);
@@ -42,7 +43,6 @@ double			det(Matrix_square &matr)
 		}
 	for (int i = 0; i < matr.size; i++)
 		det *= copy[i][i];
-	std::cout << copy;
 	return (det * sign);
 }
 
@@ -57,8 +57,23 @@ Matrix_square	trans(const Matrix_square &matr)
 	return (ans);
 }
 
+double			trace(const Matrix_square &matr)
+{
+	double ans;
+	
+	ans = 0;
+	for (int i = 0; i < matr.size; i++)
+		ans += matr[i][i];
+	return (ans);
+}
+
 
 Matrix_square	inv(const Matrix_square &matr)
 {
-	return (matr);
+	Matrix_square cf(matr);
+	Matrix_square E;
+	
+	E.E(matr.size);
+
+	return (E);
 }

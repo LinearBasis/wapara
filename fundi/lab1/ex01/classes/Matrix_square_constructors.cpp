@@ -10,8 +10,6 @@ Matrix_square::Matrix_square(const Matrix_square &matr)
 {
 	size = matr.size;
 	alloc_mem();
-	if (!arr)
-		return;
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
 			arr[i][j] = matr[i][j];

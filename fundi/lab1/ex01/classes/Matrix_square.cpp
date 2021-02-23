@@ -26,7 +26,10 @@ void	Matrix_square::free_mem()
 void	Matrix_square::alloc_mem()
 {
 	if (size == 0)
+	{
+		arr = NULL;
 		return ;
+	}
 	arr = new double*[size];
 	if (!arr)
 		return;
