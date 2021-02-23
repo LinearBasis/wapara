@@ -38,7 +38,6 @@ public:
 	Matrix_square(std::vector <std::vector <double> > vec); //+
 	~Matrix_square();
 
-
 	Matrix_square&			operator=(const Matrix_square &matr);
 	double*					operator[](int i) const; //+
 	Matrix_square			operator+(const Matrix_square &matr) const; //+
@@ -57,7 +56,6 @@ public:
 
 	friend std::ostream&	operator<<(std::ostream& fout, const Matrix_square &matr); //+
 	friend std::istream&	operator>>(std::istream& fin, Matrix_square &matr); //+
-
 
 	bool					operator==(const Matrix_square &matr) const; //+
 	bool					operator!=(const Matrix_square &matr)const; //+

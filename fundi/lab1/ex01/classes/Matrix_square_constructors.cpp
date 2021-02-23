@@ -42,14 +42,12 @@ Matrix_square::Matrix_square(int size_)
 Matrix_square::Matrix_square(std::vector <std::vector <double> > vec)
 {
 	for (unsigned long i = 0; i < vec.size(); i++)
-	{
 		if (vec[i].size() != vec.size())
 		{
 			size = 0;
 			arr = 0;
 			return ;
 		}
-	}
 	size = vec.size();
 	alloc_mem();
 	for (int i = 0; i < size; i++)

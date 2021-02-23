@@ -64,6 +64,8 @@ Matrix_square	Matrix_square::operator-() const
 {
 	Matrix_square c;
 
+	if (size == 0)
+		throw std::logic_error("Can't negate empty matrix");
 	c.size = size;
 	c.alloc_mem();
 	if (!c.arr)
@@ -76,11 +78,11 @@ Matrix_square	Matrix_square::operator-() const
 
 void			Matrix_square::operator*=(const Matrix_square &matr)
 {
-	Matrix_square			c;
+	Matrix_square	c;
 
 	c.size = size;
 	c.alloc_mem();
-	if (!c.arr)
+	if (!c.arr && matr.arr)
 		throw std::bad_alloc();
 	if (size != matr.size)
 		throw std::logic_error("Sizes aren't same");
@@ -96,10 +98,14 @@ void			Matrix_square::operator*=(const Matrix_square &matr)
 
 Matrix_square	Matrix_square::operator*(const Matrix_square &matr) const
 {
-	Matrix_square						c(*this);
+	Matrix_square	c(*this);
 
+	std::cout << "LULALLOC" << std::endl;
 	if (c.arr == NULL && this->arr != NULL)
+	{
+		std::cout << "Test" << std::endl;
 		throw std::bad_alloc();
+	}
 	c *= matr;
 	return (c);
 }
@@ -125,7 +131,7 @@ Matrix_square	Matrix_square::operator*(double num) const
 {
 	Matrix_square	c(*this);
 
-	if (c.arr == NULL && this->arr != NULL )
+	if (c.arr == NULL && this->arr != NULL)
 		throw std::bad_alloc();
 	c *= num;
 	return (c);
@@ -153,11 +159,11 @@ Matrix_square	Matrix_square::operator/(double num) const
 	return (c);
 }
 
-static	double	check_is_double(std::string	str, int ind)
+static	double	check_is_double(std::string	str, int &i)
 {
-	int i;
+	int ind;
 
-	i = ind;
+	ind = i;
 	while (isdigit(str[i]))
 		i++;
 	if (str[i] == ' ' || str[i] == ']')
@@ -181,13 +187,12 @@ std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
 	int row;
 	int col;
 
-	str::cout << "hello" << std::endl;
 	i = 1;
 	col = -1;
 	row = 0;
 	std::getline(fin, readed);
 	if (readed[0] != '[' || readed[readed.size() - 1] != ']')
-		throw std::invalid_argument("error");
+		throw std::invalid_argument("error, open-bracket (or close-bracket) is missed");
 	while (readed[i])
 	{
 		std::vector	<double>				tmp;
@@ -196,24 +201,27 @@ std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
 		else if(readed[i] == ']')
 			break;
 		else
-			throw std::invalid_argument("error");
+			throw std::invalid_argument("undefined symb");
 		while (readed[i] != ']')
 		{
 			tmp.push_back(check_is_double(readed, i));
-			while (isdigit(readed[i]) || readed[i] == '.')
-				i++;
 			if (readed[i] != ' ' && readed[i] != ']')
-				throw std::invalid_argument("error");
+				throw std::invalid_argument("format error");
+			if (readed[i] == ' ' && isdigit(readed[i + 1]))
+				i++;
 		}
 		if (col == -1)
 			col = tmp.size();
 		else if (col != (int)tmp.size())
-			throw std::invalid_argument("error");
+			throw std::invalid_argument("len of rows aren't equal");
 		matrix.push_back(tmp);
+		i++;
+		row++;
 	}
+	if (col != row)
+		throw std::invalid_argument("cols aren't equal rows");
 	Matrix_square m(matrix);
 	matr = m;
-	std::cout << m;
 	return (fin);
 }
 
@@ -232,7 +240,6 @@ std::ostream&	operator<<(std::ostream& fout, const Matrix_square &matr)
 		fout << "]";
 	}
 	fout << "]";
-	fout << std::endl;
 	return (fout);
 }
 
