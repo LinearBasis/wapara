@@ -30,6 +30,51 @@ void			Matrix_square::operator+=(const Matrix_square &matr)
 			arr[i][j] += matr[i][j];
 }
 
+void			Matrix_square::operator-=(const Matrix_square &matr)
+{
+	if (size != matr.size)
+		throw std::logic_error("Size error");
+	for (int i = 0; i < size; i++)
+		for (int j = 0; j < size; j++)
+			arr[i][j] -= matr[i][j];
+}
+
+void			Matrix_square::operator*=(const Matrix_square &matr)
+{
+	Matrix_square	c;
+
+	c.size = size;
+	c.alloc_mem();
+	if (!c.arr && matr.arr)
+		throw std::bad_alloc();
+	if (size != matr.size)
+		throw std::logic_error("Sizes aren't same");
+	for (int i = 0; i < size; i++)
+		for (int j = 0; j < size; j++)
+		{
+			c[i][j] = 0;
+			for (int k = 0; k < size; k++)
+				c[i][j] += arr[i][k] * matr[k][j];
+		}
+	*this = c;
+}
+
+void			Matrix_square::operator*=(double num)
+{
+	for (int i = 0; i < size; i++)
+		for (int j = 0; j < size; j++)
+			arr[i][j] *= num;
+}
+
+void			Matrix_square::operator/=(double num)
+{
+	if (abs(num) < 1E-8)
+		throw std::logic_error("Zero division");
+	for (int i = 0; i < size; i++)
+		for (int j = 0; j < size; j++)
+			arr[i][j] /= num;
+}
+
 Matrix_square	Matrix_square::operator+(const Matrix_square &matr) const
 {
 	Matrix_square c(*this);
@@ -39,15 +84,6 @@ Matrix_square	Matrix_square::operator+(const Matrix_square &matr) const
 
 	c += matr;
 	return (c);
-}
-
-void			Matrix_square::operator-=(const Matrix_square &matr)
-{
-	if (size != matr.size)
-		throw std::logic_error("Size error");
-	for (int i = 0; i < size; i++)
-		for (int j = 0; j < size; j++)
-			arr[i][j] -= matr[i][j];
 }
 
 Matrix_square	Matrix_square::operator-(const Matrix_square &matr) const
@@ -76,45 +112,16 @@ Matrix_square	Matrix_square::operator-() const
 	return (c);
 }
 
-void			Matrix_square::operator*=(const Matrix_square &matr)
-{
-	Matrix_square	c;
-
-	c.size = size;
-	c.alloc_mem();
-	if (!c.arr && matr.arr)
-		throw std::bad_alloc();
-	if (size != matr.size)
-		throw std::logic_error("Sizes aren't same");
-	for (int i = 0; i < size; i++)
-		for (int j = 0; j < size; j++)
-		{
-			c[i][j] = 0;
-			for (int k = 0; k < size; k++)
-				c[i][j] += arr[i][k] * matr[k][j];
-		}
-	*this = c;
-}
-
 Matrix_square	Matrix_square::operator*(const Matrix_square &matr) const
 {
 	Matrix_square	c(*this);
 
-	std::cout << "LULALLOC" << std::endl;
 	if (c.arr == NULL && this->arr != NULL)
 	{
-		std::cout << "Test" << std::endl;
 		throw std::bad_alloc();
 	}
 	c *= matr;
 	return (c);
-}
-
-void			Matrix_square::operator*=(double num)
-{
-	for (int i = 0; i < size; i++)
-		for (int j = 0; j < size; j++)
-			arr[i][j] *= num;
 }
 
 Matrix_square	operator*(double num, const Matrix_square &matr)
@@ -135,18 +142,6 @@ Matrix_square	Matrix_square::operator*(double num) const
 		throw std::bad_alloc();
 	c *= num;
 	return (c);
-}
-
-
-
-
-void			Matrix_square::operator/=(double num)
-{
-	if (abs(num) < 1E-8)
-		throw std::logic_error("Zero division");
-	for (int i = 0; i < size; i++)
-		for (int j = 0; j < size; j++)
-			arr[i][j] /= num;
 }
 
 Matrix_square	Matrix_square::operator/(double num) const
@@ -179,9 +174,8 @@ static	double	check_is_double(std::string	str, int &i)
 	throw std::invalid_argument("Reading matrix error");
 }
 
-std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
+Matrix_square	parse_string(std::string readed)
 {
-	std::string							readed;
 	std::vector <std::vector <double> > matrix;
 	int i;
 	int row;
@@ -190,7 +184,7 @@ std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
 	i = 1;
 	col = -1;
 	row = 0;
-	std::getline(fin, readed);
+
 	if (readed[0] != '[' || readed[readed.size() - 1] != ']')
 		throw std::invalid_argument("error, open-bracket (or close-bracket) is missed");
 	while (readed[i])
@@ -221,7 +215,17 @@ std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
 	if (col != row)
 		throw std::invalid_argument("cols aren't equal rows");
 	Matrix_square m(matrix);
-	matr = m;
+
+	return (m);
+}
+
+std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
+{
+	std::string readed;
+	std::getline(fin, readed);
+
+	matr = parse_string(readed);
+
 	return (fin);
 }
 

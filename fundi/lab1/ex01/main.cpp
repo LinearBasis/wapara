@@ -5,10 +5,18 @@
 
 int		main()
 {
-	Matrix_square	a, b;
-	std::string		asd;
+	try
+	{
+		
+		Matrix_square	a, b;
+		std::string		asd;
 
-	std::ifstream	f("in.txt");
-	f >> a;
-	std::cout << trace(a) << std::endl;
+		std::ifstream	f("in.txt");
+		std::ofstream	o("out.txt");
+		parse_expression(f, std::cout);
+	}
+	catch(std::exception &ex)
+	{
+		std::cout << ex.what() << std::endl;
+	}
 }

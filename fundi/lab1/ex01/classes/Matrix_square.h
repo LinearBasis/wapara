@@ -29,6 +29,7 @@ private:
 	void								free_mem();
 	void								alloc_mem();
 	void								E(int size_);
+	
 
 public:
 	Matrix_square(); //+
@@ -60,12 +61,18 @@ public:
 	bool					operator==(const Matrix_square &matr) const; //+
 	bool					operator!=(const Matrix_square &matr)const; //+
 
-	friend double			det(Matrix_square &matr); //+
-	friend Matrix_square	inv(const Matrix_square &matr);
-	friend Matrix_square	trans(const Matrix_square &matr);
-	friend double			trace(const Matrix_square &matr);
-	friend double			exp(const Matrix_square &matr);
-	friend double			trace(const Matrix_square &matr);
+	friend double			det(const Matrix_square &matr); //+
+	friend Matrix_square	inv(const Matrix_square &matr); //+
+	friend Matrix_square	trans(const Matrix_square &matr); //+
+	friend double			trace(const Matrix_square &matr); //+
+	friend double			exp(const Matrix_square &matr); //+
+
+	
+	friend Matrix_square	parse_string(std::string readed);
+	
 
 	//std::string convert() const override;
 };
+
+Matrix_square	parse_expression(std::istream &fin, std::ostream &fout);
+Matrix_square	parse_string(std::string readed);
