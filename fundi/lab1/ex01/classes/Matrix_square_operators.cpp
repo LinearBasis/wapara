@@ -229,21 +229,29 @@ std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
 	return (fin);
 }
 
-std::ostream&	operator<<(std::ostream& fout, const Matrix_square &matr)
+
+std::string		get_string_to_out(const Matrix_square &matr)
 {
-	fout << "[";
+	std::string ans = "";
+	ans += std::string("[");
 	for (int i = 0; i < matr.size; i++)
 	{
-		fout << "[";
+		ans += std::string("[");
 		for (int j = 0; j < matr.size; j++)
 		{
-			fout << matr[i][j];
+			ans += std::to_string(matr[i][j]);
 			if (j != matr.size - 1)
-				fout << " ";
+				ans += std::string(" ");
 		}
-		fout << "]";
+		ans += std::string("]");
 	}
-	fout << "]";
+	ans += std::string("]");
+	return (ans);
+}
+
+std::ostream&	operator<<(std::ostream& fout, const Matrix_square &matr)
+{
+	fout << get_string_to_out(matr);
 	return (fout);
 }
 

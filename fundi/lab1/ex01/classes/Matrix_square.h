@@ -55,6 +55,8 @@ public:
 	void					operator*=(double num); //+
 	void					operator/=(double num); //+
 
+	friend std::string		get_string_to_out(const Matrix_square &matr);
+
 	friend std::ostream&	operator<<(std::ostream& fout, const Matrix_square &matr); //+
 	friend std::istream&	operator>>(std::istream& fin, Matrix_square &matr); //+
 
@@ -65,7 +67,7 @@ public:
 	friend Matrix_square	inv(const Matrix_square &matr); //+
 	friend Matrix_square	trans(const Matrix_square &matr); //+
 	friend double			trace(const Matrix_square &matr); //+
-	friend double			exp(const Matrix_square &matr); //+
+	friend double			exp(const Matrix_square &matr);
 
 	
 	friend Matrix_square	parse_string(std::string readed);
@@ -74,5 +76,5 @@ public:
 	//std::string convert() const override;
 };
 
-Matrix_square	parse_expression(std::istream &fin, std::ostream &fout);
+std::vector<std::string>		parse_expression(std::istream &fin);
 Matrix_square	parse_string(std::string readed);

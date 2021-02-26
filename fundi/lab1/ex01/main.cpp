@@ -13,7 +13,7 @@ int		main()
 
 		std::ifstream	f("in.txt");
 		std::ofstream	o("out.txt");
-		parse_expression(f, std::cout);
+		parse_expression(f);
 	}
 	catch(std::exception &ex)
 	{
