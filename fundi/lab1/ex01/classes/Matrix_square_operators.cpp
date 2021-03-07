@@ -156,13 +156,21 @@ Matrix_square	Matrix_square::operator/(double num) const
 
 static	double	check_is_double(std::string	str, int &i)
 {
+	using namespace std;
+
 	int ind;
 
 	ind = i;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	if (!isdigit(str[i]))
+		throw std::invalid_argument("Reading matrix error");
 	while (isdigit(str[i]))
 		i++;
 	if (str[i] == ' ' || str[i] == ']')
+	{
 		return atof(str.c_str() + ind);
+	}
 	else if (str[i] == '.' && isdigit(str[i + 1]))
 		i++;
 	else
@@ -174,7 +182,7 @@ static	double	check_is_double(std::string	str, int &i)
 	throw std::invalid_argument("Reading matrix error");
 }
 
-Matrix_square	parse_string(std::string readed)
+Matrix_square	get_matrix_from_string(std::string readed)
 {
 	std::vector <std::vector <double> > matrix;
 	int i;
@@ -224,13 +232,13 @@ std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
 	std::string readed;
 	std::getline(fin, readed);
 
-	matr = parse_string(readed);
+	matr = get_matrix_from_string(readed);
 
 	return (fin);
 }
 
 
-std::string		get_string_to_out(const Matrix_square &matr)
+std::string		get_string_from_matrix(const Matrix_square &matr)
 {
 	std::string ans = "";
 	ans += std::string("[");
@@ -251,7 +259,7 @@ std::string		get_string_to_out(const Matrix_square &matr)
 
 std::ostream&	operator<<(std::ostream& fout, const Matrix_square &matr)
 {
-	fout << get_string_to_out(matr);
+	fout << get_string_from_matrix(matr);
 	return (fout);
 }
 
@@ -270,4 +278,3 @@ bool			Matrix_square::operator!=(const Matrix_square &matr) const
 {
 	return (!(matr == *this));
 }
-

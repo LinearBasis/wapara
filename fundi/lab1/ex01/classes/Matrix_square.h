@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #pragma once
-//#include "TeX_convertible.h"
+#include "TeX_convertible.h"
 #include <fstream>
 #include <vector>
 #include <stdlib.h>
@@ -20,7 +20,7 @@
 #include <iostream>
 #include <utility>
 
-class Matrix_square
+class Matrix_square : public TeX_convertible
 {
 private:
 	double			**arr;
@@ -55,7 +55,7 @@ public:
 	void					operator*=(double num); //+
 	void					operator/=(double num); //+
 
-	friend std::string		get_string_to_out(const Matrix_square &matr);
+	friend std::string		get_string_from_matrix(const Matrix_square &matr);
 
 	friend std::ostream&	operator<<(std::ostream& fout, const Matrix_square &matr); //+
 	friend std::istream&	operator>>(std::istream& fin, Matrix_square &matr); //+
@@ -69,12 +69,11 @@ public:
 	friend double			trace(const Matrix_square &matr); //+
 	friend double			exp(const Matrix_square &matr);
 
-	
-	friend Matrix_square	parse_string(std::string readed);
-	
 
-	//std::string convert() const override;
+	std::string convert() const override;
 };
 
-std::vector<std::string>		parse_expression(std::istream &fin);
-Matrix_square	parse_string(std::string readed);
+std::vector<std::string>	parse_expression(std::istream &fin);
+Matrix_square				get_matrix_from_string(std::string readed);
+std::string					get_string_of_tex_expressions(std::vector 
+								<std::vector <std::string> > expressions);
