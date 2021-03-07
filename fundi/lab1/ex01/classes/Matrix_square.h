@@ -77,3 +77,4 @@ std::vector<std::string>	parse_expression(std::istream &fin);
 Matrix_square				get_matrix_from_string(std::string readed);
 std::string					get_string_of_tex_expressions(std::vector 
 								<std::vector <std::string> > expressions);
+std::string	good_double_to_string(double d);

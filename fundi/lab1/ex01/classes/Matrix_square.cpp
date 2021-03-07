@@ -142,7 +142,7 @@ std::string		get_operator_string_from_unary(std::string str)
 	sub_begin = check_is_binary(str);
 	if (!sub_begin)
 		throw std::invalid_argument("Bad string");
-	ans = str.substr(0, sub_begin + 1);
+	ans = str.substr(0, sub_begin);
 	return (ans);
 }
 
@@ -166,10 +166,11 @@ std::string		get_unary(std::string str)
 
 
 	parsed = get_matrix_string_from_unary(str);
+	std::cout << parsed << std::endl;
 	if (str.find("det(") != (size_t)-1)
-		return (std::to_string(det(get_matrix_from_string(parsed))));
+		return (good_double_to_string(det(get_matrix_from_string(parsed))));
 	else if (str.find("trace(") != (size_t)-1)
-		return (std::to_string(trace(get_matrix_from_string(parsed))));
+		return (good_double_to_string(trace(get_matrix_from_string(parsed))));
 	else if (str.find("inv(") != (size_t)-1)
 		return (get_string_from_matrix(inv(get_matrix_from_string(parsed))));
 	else if (str.find("trans(") != (size_t)-1)
@@ -243,7 +244,7 @@ std::string	Matrix_square::convert() const
 		ans += "\t\t\t";
 		while (j < size) //ИЗОБРЕЛ СЕЛЕКЦИЮ (не бейте, я поржать)
 		{
-			ans += std::to_string(arr[i][j++]);
+			ans += good_double_to_string(arr[i][j++]);
 			if (j < size)
 				ans += " & ";
 			else if (i < size - 1)

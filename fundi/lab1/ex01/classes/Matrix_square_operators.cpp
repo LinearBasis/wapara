@@ -237,6 +237,21 @@ std::istream&	operator>>(std::istream& fin, Matrix_square &matr)
 	return (fin);
 }
 
+std::string	good_double_to_string(double d)
+{
+	std::string to_str;
+
+	to_str = std::to_string(d);
+	if (to_str.find(".") == (size_t)-1)
+		return (to_str);
+	else
+		while (to_str[to_str.size() - 1] == '0')
+			to_str = to_str.substr(0, to_str.size() -1 );
+	if (to_str[to_str.size() - 1] == '.')
+		to_str = to_str.substr(0, to_str.size() -1 );
+
+	return (to_str);
+}
 
 std::string		get_string_from_matrix(const Matrix_square &matr)
 {
@@ -247,7 +262,7 @@ std::string		get_string_from_matrix(const Matrix_square &matr)
 		ans += std::string("[");
 		for (int j = 0; j < matr.size; j++)
 		{
-			ans += std::to_string(matr[i][j]);
+			ans += good_double_to_string(matr[i][j]);
 			if (j != matr.size - 1)
 				ans += std::string(" ");
 		}
