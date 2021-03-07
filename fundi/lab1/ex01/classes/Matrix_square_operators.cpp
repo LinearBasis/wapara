@@ -249,7 +249,6 @@ std::string	good_double_to_string(double d)
 			to_str = to_str.substr(0, to_str.size() -1 );
 	if (to_str[to_str.size() - 1] == '.')
 		to_str = to_str.substr(0, to_str.size() -1 );
-
 	return (to_str);
 }
 
