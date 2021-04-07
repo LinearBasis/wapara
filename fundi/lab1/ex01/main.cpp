@@ -19,6 +19,7 @@ std::vector <std::vector <std::string> >	parse_all_expressions(std::istream &f)
 			if (parse_result.size() == 0)
 				break;
 			ans.push_back(parse_result);
+			std::cout << std::endl;
 		}
 		catch (std::exception &ex)
 		{

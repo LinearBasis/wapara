@@ -1,134 +1,18 @@
-trace\begin{equation*}
+exp\begin{equation*}
 	\left(
 		\begin{array}{ccc}
-			1 & 2 & 3\\
-			4 & 5 & 6\\
-			7 & 8 & 9
-		\end{array}
-	\right)
-\end{equation*}
- = 15
-
-\begin{equation*}
-	\left(
-		\begin{array}{ccc}
-			1 & 2 & 3\\
-			4 & 5 & 6\\
-			7 & 8 & 9
-		\end{array}
-	\right)
-\end{equation*}
- * 3 = \begin{equation*}
-	\left(
-		\begin{array}{ccc}
-			3 & 6 & 9\\
-			12 & 15 & 18\\
-			21 & 24 & 27
-		\end{array}
-	\right)
-\end{equation*}
-
-
-3 * \begin{equation*}
-	\left(
-		\begin{array}{ccc}
-			1 & 2 & 3\\
-			4 & 5 & 6\\
-			7 & 8 & 9
-		\end{array}
-	\right)
-\end{equation*}
-  = \begin{equation*}
-	\left(
-		\begin{array}{ccc}
-			3 & 6 & 9\\
-			12 & 15 & 18\\
-			21 & 24 & 27
-		\end{array}
-	\right)
-\end{equation*}
-
-
-trans\begin{equation*}
-	\left(
-		\begin{array}{cccc}
-			1 & 5 & 9 & 13\\
-			2 & 6 & 10 & 14\\
-			3 & 7 & 11 & 15\\
-			4 & 8 & 12 & 3.141592
+			1 & 0 & 0\\
+			0 & 1 & 0\\
+			0 & 0 & 1
 		\end{array}
 	\right)
 \end{equation*}
  = \begin{equation*}
 	\left(
-		\begin{array}{cccc}
-			1 & 2 & 3 & 4\\
-			5 & 6 & 7 & 8\\
-			9 & 10 & 11 & 12\\
-			13 & 14 & 15 & 3.141592
-		\end{array}
-	\right)
-\end{equation*}
-
-
-trans\begin{equation*}
-	\left(
-		\begin{array}{cc}
-			-1 & 2\\
-			3 & 4
-		\end{array}
-	\right)
-\end{equation*}
- = \begin{equation*}
-	\left(
-		\begin{array}{cc}
-			-1 & 3\\
-			2 & 4
-		\end{array}
-	\right)
-\end{equation*}
-
-
-inv\begin{equation*}
-	\left(
-		\begin{array}{c}
-			1
-		\end{array}
-	\right)
-\end{equation*}
- = \begin{equation*}
-	\left(
-		\begin{array}{c}
-			1
-		\end{array}
-	\right)
-\end{equation*}
-
-
-\begin{equation*}
-	\left(
 		\begin{array}{ccc}
-			1 & 2 & 3\\
-			4 & 5 & 6\\
-			7 & 8 & 9
-		\end{array}
-	\right)
-\end{equation*}
- * \begin{equation*}
-	\left(
-		\begin{array}{ccc}
-			1 & 2 & 3\\
-			4 & 5 & 6\\
-			7 & 8 & 9
-		\end{array}
-	\right)
-\end{equation*}
-  = \begin{equation*}
-	\left(
-		\begin{array}{ccc}
-			30 & 36 & 42\\
-			66 & 81 & 96\\
-			102 & 126 & 150
+			2.718282 & 0 & 0\\
+			0 & 2.718282 & 0\\
+			0 & 0 & 2.718282
 		\end{array}
 	\right)
 \end{equation*}

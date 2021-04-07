@@ -283,7 +283,7 @@ bool			Matrix_square::operator==(const Matrix_square &matr) const
 		return (false);
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
-			if (matr[i][j] != arr[i][j])
+			if (abs(matr[i][j] - arr[i][j]) < EPS)
 				return (false);
 	return (true);
 }

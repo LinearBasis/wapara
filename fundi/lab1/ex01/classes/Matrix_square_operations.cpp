@@ -108,6 +108,31 @@ Matrix_square	inv(const Matrix_square &matr)
 			copy[i][j] /= index;
 		}
 	}
-
 	return E;
+}
+
+Matrix_square		exp(const Matrix_square &matr)
+{
+	Matrix_square	ans(matr * inv(matr));
+	Matrix_square	cpy(matr);
+	double			max;
+	double			fac;
+	int				ind;
+
+	fac = 1;
+	max = matr[0][0];
+	for (int i = 0; i < matr.size; i++)
+		for (int j = 0; j < matr.size; j++)
+			if (max < matr[i][j])
+				max = matr[i][j];
+	ind = 2;
+	while (abs(max) > EPS)
+	{
+		ans += cpy * fac;
+		cpy *= matr;
+		fac /= ind;
+		max /= ind;
+		ind++;
+	}
+	return (ans);
 }

@@ -123,7 +123,7 @@ std::string		get_binary(std::vector <std::string> &operations)
 int							check_is_binary(std::string str)
 {
 	int ans;
-	if (str.find("det(") != (size_t)-1 || str.find("inv(") != (size_t)-1)
+	if (str.find("det(") != (size_t)-1 || str.find("inv(") != (size_t)-1 || str.find("exp(") != (size_t)-1)
 		ans = 3;
 	else if(str.find("trace(") != (size_t)-1 || str.find("trans(") != (size_t)-1)
 		ans = 5;
@@ -175,6 +175,8 @@ std::string		get_unary(std::string str)
 		return (get_string_from_matrix(inv(get_matrix_from_string(parsed))));
 	else if (str.find("trans(") != (size_t)-1)
 		return (get_string_from_matrix(trans(get_matrix_from_string(parsed))));
+	else if (str.find("exp(") != (size_t)-1)
+		return (get_string_from_matrix(exp(get_matrix_from_string(parsed))));
 	return (get_string_from_matrix(matr));
 }
 
@@ -189,7 +191,8 @@ std::vector <std::string>	parse_expression(std::istream &fin)
 		return (answer);
 	answer.push_back(str);
 	if (str.find("det(") != (size_t)-1 || str.find("trans(") != (size_t)-1
-	|| str.find("inv(") != (size_t)-1 || str.find("trace(") != (size_t)-1)
+	|| str.find("inv(") != (size_t)-1 || str.find("trace(") != (size_t)-1 ||
+	str.find("exp(") != (size_t)-1)
 	{
 			answer.push_back(get_unary(str));
 			std::getline(fin, str);
@@ -274,9 +277,7 @@ std::string	get_string_of_tex_expressions(std::vector <std::vector <std::string>
 		}
 		if (expressions[i].size() == 2)
 		{
-			std::cout << "ans += " << get_operator_string_from_unary(expressions[i][0]) << std::endl;
 			ans += get_operator_string_from_unary(expressions[i][0]);
-			std::cout << "ans += " << get_matrix_string_from_unary(expressions[i][0]) << std::endl;
 			ans += get_matrix_from_string(get_matrix_string_from_unary(expressions[i][0])).convert();
 			ans += " = ";
 			if (expressions[i][1][0] == '[')

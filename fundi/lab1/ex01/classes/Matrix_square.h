@@ -19,6 +19,7 @@
 #include <string>
 #include <iostream>
 #include <utility>
+#define EPS 1E-6
 
 class Matrix_square : public TeX_convertible
 {
@@ -67,7 +68,7 @@ public:
 	friend Matrix_square	inv(const Matrix_square &matr); //+
 	friend Matrix_square	trans(const Matrix_square &matr); //+
 	friend double			trace(const Matrix_square &matr); //+
-	friend double			exp(const Matrix_square &matr);
+	friend Matrix_square	exp(const Matrix_square &matr);
 
 
 	std::string convert() const override;
