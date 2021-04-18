@@ -81,7 +81,7 @@ Matrix_square	inv(const Matrix_square &matr)
 		{
 			if (i == j)
 				continue ;
-			if (copy[i][i] == 0)
+			if (abs(copy[i][i]) < EPS)
 				for (int l = i + 1; l < matr.size; l++)
 					if (copy[l][i] != 0)
 					{
@@ -89,8 +89,6 @@ Matrix_square	inv(const Matrix_square &matr)
 						swap(E[l], E[i], E.size);
 						break ;
 					}
-			if (copy[i][i] == 0)
-				throw std::logic_error("I DON'T KNOW WHAT THE F*CK 1");
 			index = copy[j][i] / copy[i][i];
 			for (int k = 0; k < matr.size; k++)
 			{
