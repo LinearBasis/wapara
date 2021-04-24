@@ -1,27 +1,22 @@
 #include "monom.h"
 
-std::string				Monomial::get_str()
+std::string				Monomial::get_str() const
 {
 	std::string	ans;
-	std::map <char, int>::iterator iter;
-	std::map <char, int>::iterator ender;
+	std::map <char, int>::const_iterator	iter;
 
-	if (this->pows.size() == 0)
-		return (ans);
 	iter = this->pows.begin();
-	ender = this->pows.end();
 	ans += std::to_string(this->n);
-	while (1)
+	while (n != 0)
 	{
+		ans += " ";
 		ans += iter->first;
 		if (iter->second != 1)
 			ans += "^" + std::to_string(iter->second);
 		iter++;
-		if (iter == ender)
-		{
+		if (iter == pows.end())
 			break;
-		}
-		ans += " * ";
+		ans += " *";
 	}
 	return (ans);
 }

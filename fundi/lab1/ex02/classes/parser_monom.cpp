@@ -51,7 +51,7 @@ static std::string			get_token_from_i(std::string str, int &i)
 	throw std::invalid_argument("bad string, it can't be parsed");
 }
 
-std::vector <std::string>	tokenize_this_string(const std::string str)
+std::vector <std::string>	tokenize_this_string(const std::string &str)
 {
 	int							i;
 	std::string					tmp;
@@ -70,19 +70,39 @@ std::vector <std::string>	tokenize_this_string(const std::string str)
 		throw std::invalid_argument("bad string, it can't be parsed");
 }
 
+bool			equal_pows(const Monomial& monom1, const Monomial& monom2)
+{
+	std::map<char, int>::const_iterator	iter1;
+	std::map<char, int>::const_iterator	iter2;
+
+	iter1 = monom1.pows.begin();
+	iter2 = monom2.pows.begin();
+
+	while (iter1 != monom1.pows.end() && iter2 != monom2.pows.end())
+	{
+		if (*iter1 != *iter2)
+			return (false);
+		iter1++;
+		iter2++;
+	}
+	if (iter1 != monom1.pows.end() || iter2 != monom2.pows.end())
+		return (false);
+	return (true);
+}
+
 void			Monomial::add(std::string str)
 {
-	int		n;
+	int		tmp_n;
 	char	c;
 	int		p;
 	int		i;
  
 	i = 0;
-	n = atoi(str.c_str());
+	tmp_n = atoi(str.c_str());
 	if (str[i] == '-')
 		i++;
 	if (!isdigit(str[i]))
-		n = 1;
+		tmp_n = 1;
 	while (isdigit(str[i]))
 		i++;
 	c = str[i];
@@ -90,33 +110,41 @@ void			Monomial::add(std::string str)
 	if (str[i] == '^')
 		i++;
 	p = atoi(str.c_str() + i);
-	if (!isdigit(str[i]))
+	if (!isdigit(str[i]) && str[i] != '-')
 		p = 1;
-	if (this->pows.find(c) == this->pows.end())
+	if (this->pows.find(c) == this->pows.end() && p >= 0)
 		this->pows.insert(std::make_pair(c, p));
+	else if (p < 0)
+		throw std::invalid_argument("negative pow");
 	else
 		throw std::invalid_argument("bad string, repeating of variables");
-	this->n *= n;
+
+	this->n *= tmp_n;
 }
 
 Monomial		create_monom_from_tokens(std::vector <std::string> monoms)
 {
-	Monomial mon;
-	std::vector <std::string>::iterator iter = monoms.begin();
+	Monomial							mon;
+	std::vector <std::string>::iterator	str_iter;
+	std::map<char, int>::iterator		map_iter;
 
-
-	while (iter != monoms.end())
+	str_iter = monoms.begin();
+	while (str_iter != monoms.end())
 	{
-		mon.add(*iter);
-		iter++;
+		mon.add(*str_iter);
+		str_iter++;
 	}
-	std::cout << mon.get_str() << std::endl;
+	if (mon.n == 0)
+		mon.pows.clear();
 	return (mon);
 }
 
-Monomial::Monomial(const std::string &monom_str)
+std::istream&	operator>>(std::istream& fin, Monomial& monom)
 {
-	Monomial mon;
-
-	mon = create_monom_from_tokens(tokenize_this_string(monom_str));
+	std::string	str;
+	getline(fin, str);
+	if (str[0] == 0)
+		throw std::invalid_argument("empty string");
+	monom = create_monom_from_tokens(tokenize_this_string(str));
+	return (fin);
 }

@@ -11,24 +11,36 @@ class Monomial
 private:
 	std::map <char, int>	pows;
 	int						n;
-	Monomial&				operator+=(Monomial& monom) const;
-	Monomial&				operator-=(Monomial& monom) const;
-	Monomial&				operator*=(Monomial& monom)const;
-	Monomial&				operator*=(int k) const;
-	Monomial&				operator/=(Monomial& monom) const;
+
 	void					add(std::string str);
-	std::string				get_str();
+	std::string				get_str() const;
+	friend bool				equal_pows(const Monomial& monom1, const Monomial& monom2);
+
 public:
 	Monomial();
-	Monomial(const std::string &monom_str);
 	Monomial(const Monomial& monom);
-	Monomial&				operator+(const Monomial& monom) const;
-	Monomial&				operator-(const Monomial& monom) const;
-	Monomial&				operator*(const Monomial& monom) const;
-	Monomial&				operator*(int k) const;
-	Monomial&				operator/(const Monomial& monom) const;
+	Monomial(const std::string &monom_str);
+
+	Monomial&				operator+=(const Monomial& monom);
+	Monomial&				operator-=(const Monomial& monom);
+	Monomial&				operator*=(const Monomial& monom);
+	Monomial&				operator*=(int k);
+	Monomial&				operator/=(char c);
+
+	Monomial				operator+(const Monomial& monom) const;
+	Monomial				operator-(const Monomial& monom) const;
+	Monomial				operator*(const Monomial& monom) const;
+	Monomial				operator*(int k);
+	Monomial				operator/(char c) const;
+
+	friend std::ostream&	operator<<(std::ostream& fout, const Monomial& monom);
+	friend std::istream&	operator>>(std::istream& fin, Monomial& monom);
+
+
+
 	friend Monomial			create_monom_from_tokens(std::vector <std::string> monoms);
+	friend class			Polynomial;
 };
 
-std::vector <std::string>	tokenize_this_string(std::string str);
+std::vector <std::string>	tokenize_this_string(const std::string &str);
 bool						check_tokenized_string(std::vector <std::string> tok);
