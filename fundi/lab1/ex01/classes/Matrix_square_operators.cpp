@@ -21,25 +21,28 @@ double*		Matrix_square::operator[](int i) const
 	return (arr[i]);
 }
 
-void			Matrix_square::operator+=(const Matrix_square &matr)
+Matrix_square&		Matrix_square::operator+=(const Matrix_square &matr)
 {
 	if (size != matr.size)
 		throw std::logic_error("Size error");
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
 			arr[i][j] += matr[i][j];
+	return (*this);
 }
 
-void			Matrix_square::operator-=(const Matrix_square &matr)
+
+Matrix_square&		Matrix_square::operator-=(const Matrix_square &matr)
 {
 	if (size != matr.size)
 		throw std::logic_error("Size error");
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
 			arr[i][j] -= matr[i][j];
+	return (*this);
 }
 
-void			Matrix_square::operator*=(const Matrix_square &matr)
+Matrix_square&		Matrix_square::operator*=(const Matrix_square &matr)
 {
 	Matrix_square	c;
 
@@ -57,22 +60,25 @@ void			Matrix_square::operator*=(const Matrix_square &matr)
 				c[i][j] += arr[i][k] * matr[k][j];
 		}
 	*this = c;
+	return (*this);
 }
 
-void			Matrix_square::operator*=(double num)
+Matrix_square&		Matrix_square::operator*=(double num)
 {
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
 			arr[i][j] *= num;
+	return (*this);
 }
 
-void			Matrix_square::operator/=(double num)
+Matrix_square&		Matrix_square::operator/=(double num)
 {
 	if (abs(num) < 1E-8)
 		throw std::logic_error("Zero division");
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
 			arr[i][j] /= num;
+	return (*this);
 }
 
 Matrix_square	Matrix_square::operator+(const Matrix_square &matr) const
