@@ -5,9 +5,9 @@ std::string				Monomial::get_str() const
 	std::string	ans;
 	std::map <char, int>::const_iterator	iter;
 
-	iter = this->pows.begin();
-	ans += std::to_string(this->n);
-	while (n != 0)
+	iter = pows.begin();
+	ans += std::to_string(n);
+	while (n != 0 && iter != pows.end())
 	{
 		ans += " ";
 		ans += iter->first;

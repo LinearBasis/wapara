@@ -7,6 +7,8 @@ std::ostream&	operator<<(std::ostream& fout, const Monomial& monom)
 	return (fout);
 }
 
+
+
 Monomial&				Monomial::operator*=(const Monomial& monom)
 {
 	std::map <char, int>::const_iterator iter;
@@ -46,6 +48,7 @@ Monomial				Monomial::operator*(const Monomial& monom) const
 
 Monomial&				Monomial::operator/=(char c)
 {
+	// std::cout << *this;
 	if (pows.find(c) != pows.end())
 	{
 		pows[c]--;
@@ -100,4 +103,3 @@ Monomial				Monomial::operator-(const Monomial& monom) const
 	ans -= monom;
 	return (ans);
 }
-

@@ -20,7 +20,7 @@ std::string					read_number(std::string str, int &i)
 	return (s);
 }
 
-static std::string			get_token_from_i(std::string str, int &i)
+std::string			get_token_from_i(std::string str, int &i, char *delimeter)
 {
 	std::string	ans;
 
@@ -32,7 +32,7 @@ static std::string			get_token_from_i(std::string str, int &i)
 	else
 		throw std::invalid_argument("bad string, first symb (may be after number) of token isn't lowcase alpha or second symb is lowcase alpha");
 	i++;
-	if (str[i] == ' ' && str[i + 1] == '*' && str[i + 2] == ' ')
+	if (str[i] == ' ' && strchr(delimeter, str[i + 1]) && str[i + 2] == ' ')
 	{
 		i += 3;
 		return (ans);
@@ -41,28 +41,35 @@ static std::string			get_token_from_i(std::string str, int &i)
 		throw std::invalid_argument("bad string, ^ without number");
 	ans += str[i++];
 	ans += read_number(str, i);
-	if ((str[i] == ' ' && str[i + 1] == '*' && str[i + 2] == ' '))
+	std::cout << str.c_str() + i << std::endl;
+	if ((str[i] == ' ' && strchr(delimeter, str[i + 1]) && str[i + 2] == ' '))
 	{
 		i += 3;
 		return (ans);
 	}
+	std::cout << ans << " - IN GET_TOKEN_FROM_I" << std::endl;
 	if (i >= (int)str.size())
 		return (ans);
 	throw std::invalid_argument("bad string, it can't be parsed");
 }
 
-std::vector <std::string>	tokenize_this_string(const std::string &str)
+std::vector <std::string>	tokenize_this_string(const std::string &str, char *delimeter)
 {
 	int							i;
 	std::string					tmp;
 	std::vector <std::string>	ans;
 
 	i = 0;
-	while ((tmp = get_token_from_i(str, i)).size() > 0)
+	std::cout << str << std::endl;
+	while ((tmp = get_token_from_i(str, i, delimeter)).size() > 0)
 	{
 		ans.push_back(tmp);
 		while (str[i] == ' ')
 			i++;
+	}
+	for (auto j : ans)
+	{
+		std::cout << j << std::endl;
 	}
 	if (i >= (int)str.size())
 		return (ans);
@@ -106,6 +113,7 @@ void			Monomial::add(std::string str)
 	while (isdigit(str[i]))
 		i++;
 	c = str[i];
+
 	i++;
 	if (str[i] == '^')
 		i++;
@@ -139,12 +147,3 @@ Monomial		create_monom_from_tokens(std::vector <std::string> monoms)
 	return (mon);
 }
 
-std::istream&	operator>>(std::istream& fin, Monomial& monom)
-{
-	std::string	str;
-	getline(fin, str);
-	if (str[0] == 0)
-		throw std::invalid_argument("empty string");
-	monom = create_monom_from_tokens(tokenize_this_string(str));
-	return (fin);
-}
