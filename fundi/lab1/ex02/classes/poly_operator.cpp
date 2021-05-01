@@ -91,23 +91,28 @@ Polynomial				Polynomial::operator/(char c) const
 	return (ans);
 }
 
-std::ostream&			operator<<(std::ostream& fout, const Polynomial& poly)
+std::string	Polynomial::get_poly_str() const
 {
+	std::string							ans;
 	std::list<Monomial>::const_iterator	iter1;
 
-	iter1 = poly.monoms.begin();
-	if (iter1 == poly.monoms.end())
-		fout << "0";
-	while (iter1 != poly.monoms.end())
+	iter1 = monoms.begin();
+	if (iter1 == monoms.end())
+		ans += "0";
+	while (iter1 != monoms.end())
 	{
-		fout << *iter1;
+		ans += iter1->get_str();
 		iter1++;
-		if (iter1 != poly.monoms.end())
+		if (iter1 != monoms.end())
 		{
-			fout << " + " << std::endl;
+			ans += " + ";
 		}
 	}
-	fout << std::endl;
-	return (fout);
 }
 
+std::ostream&			operator<<(std::ostream& fout, const Polynomial& poly)
+{
+	
+	fout << poly.get_poly_str();
+	return (fout);
+}

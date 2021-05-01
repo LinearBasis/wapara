@@ -35,3 +35,8 @@ void	Polynomial::compress()						// O(nlogn)
 		iter_map++;
 	}
 }
+
+std::string	Polynomial::convert() const
+{
+	
+}

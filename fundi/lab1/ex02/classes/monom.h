@@ -3,19 +3,19 @@
 #include <iostream>
 #include <fstream>
 #include <map>
-#include <string>
 #include <vector>
-// #include "polynom.h"
+#include "TeX_convertible.h"
 
 
-class Monomial
+class Monomial : public Tex_convertible
 {
 private:
 	friend class			Polynomial;
 	std::map <char, int>	pows;
 	int						n;
 
-	void					add(std::string str);
+	int						add_one_variable(std::string str, int &i);
+	std::string				create_monom(std::string str);
 	std::string				get_str() const;
 	friend bool				equal_pows(const Monomial& monom1, const Monomial& monom2);
 
@@ -34,19 +34,17 @@ public:
 	Monomial				operator+(const Monomial& monom) const;
 	Monomial				operator-(const Monomial& monom) const;
 	Monomial				operator*(const Monomial& monom) const;
-	Monomial				operator*(int k);
+	Monomial				operator*(int k) const; //да, я знаю, что надо бы реализовать еще и k * MONOM)))))
 	Monomial				operator/(char c) const;
-
-	bool					operator>(const Monomial& monom) const; 
 
 	friend std::ostream&	operator<<(std::ostream& fout, const Monomial& monom);
 	friend std::istream&	operator>>(std::istream& fin, Monomial& monom);
-
 	friend Monomial			create_monom_from_tokens(std::vector <std::string> monoms);
-	friend bool				compare_monoms(Monomial &mon1, Monomial &mon2);
+
+	std::string				convert() const override;
 };
 
 std::string					get_token_from_i(std::string str, int &i, char delimeter);
-std::vector <std::string>	tokenize_this_string(const std::string &str);
+// std::vector <std::string>	tokenize_this_string(const std::string &str);
 // bool						check_tokenized_string(std::vector <std::string> tok);
-std::vector <std::string>	tokenize_this_string(const std::string &str, char *delimeter);
+// std::vector <std::string>	tokenize_this_string(const std::string &str, char *delimeter);

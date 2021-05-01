@@ -30,8 +30,12 @@ int		main()
 {
 	Polynomial	pol1;
 	Polynomial	pol2;
-	Monomial	mon1;
+	char		c;
+	std::string	str;
 
 	std::ifstream fin("in.txt");
-	fin >> pol1;
+	fin >> pol1 >> c;
+	std::getline(fin, str);
+	fin >> pol2;
+	std::cout << pol1 << std::endl << c << std::endl << pol2 << std::endl;
 }

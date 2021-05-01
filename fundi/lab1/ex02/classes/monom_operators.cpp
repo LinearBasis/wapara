@@ -2,12 +2,20 @@
 
 std::ostream&	operator<<(std::ostream& fout, const Monomial& monom)
 {
-	fout << monom.get_str() << std::endl;
-
+	fout << monom.get_str();
 	return (fout);
 }
 
-
+std::istream&	operator>>(std::istream& fin, Monomial& monom)
+{
+	std::string	str;
+	getline(fin, str);
+	if (str[0] == 0)
+		throw std::invalid_argument("empty string");
+	std::cout << "STR - " << str << std::endl;
+	std::cout << "STR RETURNED FROM CREATE_MONOM - \"" << monom.create_monom(str) << "\"" << std::endl;
+	return (fin);
+}
 
 Monomial&				Monomial::operator*=(const Monomial& monom)
 {
@@ -36,6 +44,21 @@ Monomial&				Monomial::operator*=(const Monomial& monom)
 		iter++;
 	}
 	return (*this);
+}
+
+Monomial&				Monomial::operator*=(int k)
+{
+	n *= k;
+	return (*this);
+}
+
+
+Monomial				Monomial::operator*(int k) const
+{
+	Monomial mon(*this);
+
+	mon *= k;
+	return (mon);
 }
 
 Monomial				Monomial::operator*(const Monomial& monom) const
