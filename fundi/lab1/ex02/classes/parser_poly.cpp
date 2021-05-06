@@ -56,7 +56,6 @@ std::istream&	operator>>(std::istream& fin, Polynomial& poly)
 
 	poly.monoms.clear();
 	std::getline(fin, str);
-
 	poly.create_from_str(str);
 	poly.compress();
 	return (fin);
@@ -101,7 +100,8 @@ Polynomial	do_operation(Polynomial &pol1, char oper, Polynomial &pol2)
 	}
 	else if (oper == '/')
 	{
-		if (pol2.get_size_of_first_list_element() != 1 || pol2.monoms.size() != 1 || pol2.)
+		if (pol2.get_size_of_first_list_element() != 1 || pol2.monoms.size() != 1
+			|| !islower(pol2.get_first_char_from_first_list_element()))
 			throw std::invalid_argument("BAD CHAR TO DO DY/DC");
 		pol1 /= pol2.get_first_char_from_first_list_element();
 	}
@@ -109,5 +109,4 @@ Polynomial	do_operation(Polynomial &pol1, char oper, Polynomial &pol2)
 	{
 		throw std::invalid_argument("BAD OPERATION");
 	}
-
 }

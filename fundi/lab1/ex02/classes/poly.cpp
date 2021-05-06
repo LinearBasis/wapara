@@ -38,5 +38,5 @@ void	Polynomial::compress()						// O(nlogn)
 
 std::string	Polynomial::convert() const
 {
-	
+	return ("");	
 }

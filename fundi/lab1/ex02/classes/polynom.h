@@ -37,6 +37,6 @@ public:
 	friend std::istream&	operator>>(std::istream& fin, Polynomial& poly);
 	friend Polynomial		do_operation(Polynomial &pol1, char oper, Polynomial &pol2);
 	friend std::string		parse_expression(std::istream &fin);
-	std::string				Polynomial::convert() const override;
+	std::string				convert() const override;
 
 };
