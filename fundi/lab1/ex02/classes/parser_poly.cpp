@@ -137,6 +137,7 @@ std::vector <std::vector <std::string> > parse_all_file_to_tex(std::istream &fin
 		tmp[1] = oper;
 		tmp[2] = pol2.convert();
 		tmp[3] = pol3.convert();
+		
 		ans.push_back(tmp);
 		std::getline(fin, oper);
 		if (fin.eof() || (oper[0] != 0 && !isspace(oper[0])))

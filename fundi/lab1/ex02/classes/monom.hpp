@@ -6,6 +6,7 @@
 #include <vector>
 #include "TeX_convertible.hpp"
 
+class Polynomial;
 
 class Monomial : public Tex_convertible
 {
@@ -41,6 +42,8 @@ public:
 	friend std::ostream&	operator<<(std::ostream& fout, const Monomial& monom);
 	friend std::istream&	operator>>(std::istream& fin, Monomial& monom);
 	friend Monomial			create_monom_from_tokens(std::vector <std::string> monoms);
+	friend bool				is_homogeneous(const Polynomial &pol);
+	friend bool				is_harmonic(const Polynomial &pol);
 
 	std::string				convert() const override;
 };

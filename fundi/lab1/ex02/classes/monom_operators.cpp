@@ -12,8 +12,7 @@ std::istream&	operator>>(std::istream& fin, Monomial& monom)
 	getline(fin, str);
 	if (str[0] == 0)
 		throw std::invalid_argument("empty string");
-	std::cout << "STR - " << str << std::endl;
-	std::cout << "STR RETURNED FROM CREATE_MONOM - \"" << monom.create_monom(str) << "\"" << std::endl;
+	monom.create_monom(str);
 	return (fin);
 }
 
@@ -71,7 +70,6 @@ Monomial				Monomial::operator*(const Monomial& monom) const
 
 Monomial&				Monomial::operator/=(char c)
 {
-	// std::cout << *this;
 	if (pows.find(c) != pows.end())
 	{
 		pows[c]--;

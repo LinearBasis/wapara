@@ -72,6 +72,11 @@ int				Monomial::add_one_variable(std::string str, int &i) //part of monom is a 
 	int		k;
 	
 	a = read_number(str, i);
+	if (str[i] == 0)
+	{
+		n *= a;
+		return (1);
+	}
 	name = read_var_name(str, i);
 	k = read_pow(str, i);
 
