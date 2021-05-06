@@ -4,7 +4,7 @@
 #include <fstream>
 #include <map>
 #include <vector>
-#include "TeX_convertible.h"
+#include "TeX_convertible.hpp"
 
 
 class Monomial : public Tex_convertible
@@ -24,6 +24,7 @@ public:
 	Monomial(const Monomial& monom);
 	Monomial(const std::string &monom_str);
 	Monomial(std::map <char, int> pows, int n);
+	virtual ~Monomial();
 
 	Monomial&				operator+=(const Monomial& monom);
 	Monomial&				operator-=(const Monomial& monom);

@@ -1,4 +1,4 @@
-#include "polynom.h"
+#include "polynom.hpp"
 
 void	Polynomial::clear_zeroes()
 {
@@ -38,5 +38,17 @@ void	Polynomial::compress()						// O(nlogn)
 
 std::string	Polynomial::convert() const
 {
-	return ("");	
+	std::string							ans;
+	std::list<Monomial>::const_iterator	iter;
+
+	iter = monoms.begin();
+	while (1)
+	{
+		ans += iter->convert();
+		iter++;
+		if (iter == monoms.end())
+			break;
+		ans += " $+$ ";
+	}
+	return (ans);
 }

@@ -1,4 +1,4 @@
-#include "monom.h"
+#include "monom.hpp"
 #include <ctype.h>
 
 void						skip_spaces(std::string str, int &i)

@@ -1,4 +1,4 @@
-#include "polynom.h"
+#include "polynom.hpp"
 
 Polynomial&				Polynomial::operator+=(const Polynomial& poly)	// O( (n + m)log(n + m) )
 {
@@ -6,7 +6,6 @@ Polynomial&				Polynomial::operator+=(const Polynomial& poly)	// O( (n + m)log(n
 	compress();
 	return (*this);
 }
-
 Polynomial&				Polynomial::operator-=(const Polynomial& poly)	// O( (n + m)log(n + m) )
 {
 	std::list<Monomial> lst = poly.monoms;
@@ -18,7 +17,6 @@ Polynomial&				Polynomial::operator-=(const Polynomial& poly)	// O( (n + m)log(n
 	compress();
 	return (*this);
 }
-
 Polynomial&				Polynomial::operator*=(const Polynomial& poly)	// O(nm) + O (nm * log (nm))
 {
 	std::list<Monomial>					lst;
@@ -30,7 +28,6 @@ Polynomial&				Polynomial::operator*=(const Polynomial& poly)	// O(nm) + O (nm *
 	compress();
 	return (*this);
 }
-
 Polynomial&				Polynomial::operator*=(int k)
 {
 	std::list<Monomial>::iterator	iter;
@@ -45,7 +42,6 @@ Polynomial&				Polynomial::operator*=(int k)
 	}
 	return (*this);
 }
-
 Polynomial&				Polynomial::operator/=(char c)
 {
 	for (auto &i : monoms)
@@ -61,7 +57,6 @@ Polynomial				Polynomial::operator+(const Polynomial& poly) const
 	ans += poly;
 	return (ans);
 }
-
 Polynomial				Polynomial::operator-(const Polynomial& poly) const
 {
 	Polynomial	ans(*this);
@@ -108,11 +103,11 @@ std::string	Polynomial::get_poly_str() const
 			ans += " + ";
 		}
 	}
+	return (ans);
 }
 
 std::ostream&			operator<<(std::ostream& fout, const Polynomial& poly)
 {
-	
 	fout << poly.get_poly_str();
 	return (fout);
 }

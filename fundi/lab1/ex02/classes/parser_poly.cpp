@@ -1,4 +1,4 @@
-#include "polynom.h"
+#include "polynom.hpp"
 
 static bool			is_char_between_space(const std::string &str, int i, char c)
 {
@@ -61,14 +61,19 @@ std::istream&	operator>>(std::istream& fin, Polynomial& poly)
 	return (fin);
 }
 
+std::string		parse_poly_expression_to_str(std::istream &fin)
+{
+	Polynomial poly = parse_poly_expression(fin);
+	return (poly.get_poly_str());
+}
 
-std::string		parse_expression(std::istream &fin)
+
+Polynomial		parse_poly_expression(std::istream &fin)
 {
 	Polynomial	pol1;
 	Polynomial	pol2;
 	Polynomial	pol3;
 	std::string	ans;
-
 	std::string	oper;
 
 	fin >> pol1;
@@ -78,9 +83,8 @@ std::string		parse_expression(std::istream &fin)
 	if (oper.size() != 1)
 		throw std::invalid_argument("BAD CHAR TO DO DY/DC");
 	pol3 = do_operation(pol1, oper[0], pol2);
-	return (ans);
+	return (pol3);
 }
-
 
 Polynomial	do_operation(Polynomial &pol1, char oper, Polynomial &pol2)
 {
@@ -88,25 +92,55 @@ Polynomial	do_operation(Polynomial &pol1, char oper, Polynomial &pol2)
 
 	if (oper == '+')
 	{
-		pol1 += pol2;
+		poly += pol2;
 	}
 	else if (oper == '*')
 	{
-		pol1 *= pol2;
+		poly *= pol2;
 	}
 	else if (oper == '-')
 	{
-		pol1 -= pol2;
+		poly -= pol2;
 	}
 	else if (oper == '/')
 	{
 		if (pol2.get_size_of_first_list_element() != 1 || pol2.monoms.size() != 1
 			|| !islower(pol2.get_first_char_from_first_list_element()))
 			throw std::invalid_argument("BAD CHAR TO DO DY/DC");
-		pol1 /= pol2.get_first_char_from_first_list_element();
+		poly /= pol2.get_first_char_from_first_list_element();
 	}
 	else
 	{
 		throw std::invalid_argument("BAD OPERATION");
 	}
+	return (poly);
+}
+
+std::vector <std::vector <std::string> > parse_all_file_to_tex(std::istream &fin)
+{
+	std::vector <std::vector <std::string> >	ans;
+	std::vector <std::string> 		tmp(4);
+	Polynomial						pol1;
+	Polynomial						pol2;
+	Polynomial						pol3;
+	std::string						oper;
+
+	while (1)
+	{
+		fin >> pol1;
+		std::getline(fin, oper);
+		fin >> pol2;
+		if (oper.size() != 1)
+			throw std::invalid_argument("BAD CHAR TO DO DY/DC");
+		pol3 = do_operation(pol1, oper[0], pol2);
+		tmp[0] = pol1.convert();
+		tmp[1] = oper;
+		tmp[2] = pol2.convert();
+		tmp[3] = pol3.convert();
+		ans.push_back(tmp);
+		std::getline(fin, oper);
+		if (fin.eof() || (oper[0] != 0 && !isspace(oper[0])))
+			break;
+	}
+	return (ans);
 }

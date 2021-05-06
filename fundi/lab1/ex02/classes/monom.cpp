@@ -1,4 +1,4 @@
-#include "monom.h"
+#include "monom.hpp"
 
 std::string				Monomial::get_str() const
 {
@@ -48,8 +48,8 @@ std::string				Monomial::convert() const
 	std::map<char, int>::const_iterator	iter;
 
 	iter = pows.begin();
-	ans += std::to_string(n);
 	ans += "$";
+	ans += std::to_string(n);
 	while (iter != pows.end())
 	{
 		ans += iter->first;
@@ -57,7 +57,7 @@ std::string				Monomial::convert() const
 			ans += "^" + std::to_string(iter->second);
 		iter++;
 		if (iter != pows.end())
-			ans += " * ";
+			ans += " \\cdot ";
 	}
 	ans += "$";
 	return (ans);

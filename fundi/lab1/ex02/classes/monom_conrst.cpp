@@ -1,4 +1,4 @@
-#include "monom.h"
+#include "monom.hpp"
 
 Monomial::Monomial()
 {
@@ -29,3 +29,7 @@ Monomial::Monomial(std::map <char, int> pows, int n)
 	this->n = n;
 }
 
+Monomial::~Monomial()
+{
+
+}

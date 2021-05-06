@@ -1,4 +1,4 @@
-#include "monom.h"
+#include "monom.hpp"
 
 std::ostream&	operator<<(std::ostream& fout, const Monomial& monom)
 {

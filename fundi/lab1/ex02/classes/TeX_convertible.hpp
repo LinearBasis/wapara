@@ -6,7 +6,7 @@
 /*   By: dnicki <dnicki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 20:53:44 by dnicki            #+#    #+#             */
-/*   Updated: 2021/04/30 21:40:03 by dnicki           ###   ########.fr       */
+/*   Updated: 2021/05/06 16:00:27 by dnicki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 class Tex_convertible
 {
 public:
-	virtual std::string convert() const;
+	virtual std::string convert() const = 0;
 };

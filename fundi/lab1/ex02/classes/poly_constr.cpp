@@ -1,4 +1,4 @@
-#include "polynom.h"
+#include "polynom.hpp"
 
 Polynomial::Polynomial()
 {
@@ -17,4 +17,9 @@ Polynomial::Polynomial(const std::string &poly_str)
 Polynomial::Polynomial(std::list <Monomial> mons)
 {
 	monoms = mons;
+}
+
+Polynomial::~Polynomial()
+{
+
 }
