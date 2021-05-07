@@ -5,6 +5,7 @@ std::string		replace_substr_index(std::string str, std::string from, std::string
 {
 	for (int i = 0; i < str.size(); i++)
 	{
+		std::cout << "str[" << i << "] = " << str[i] << std::endl;
 		if (str[i] == from[0])
 		{
 			if (!strncmp(str.c_str() + i, from.c_str(), from.size()))
@@ -19,5 +20,5 @@ std::string		replace_substr_index(std::string str, std::string from, std::string
 
 int	main()
 {
-	std::cout << replace_substr_index("abc 123 abc abcabc", "abc", "aabc123") << std::endl;
+	std::cout << replace_substr_index("abc 123 abcabc", "abc", "aabc123") << std::endl;
 }

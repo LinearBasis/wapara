@@ -32,4 +32,18 @@ void	copy_arr_to_vec_and_list()
 		else
 			vec_iter++;
 	}
+	std::cout << "LST (EVEN)" << std::endl;
+	for (auto &i : lst)
+		std::cout << i << " ";
+	std::cout << std::endl;
+
+	std::cout << "VEC (ODD)" << std::endl;
+	for (auto &i : vec)
+		std::cout << i << " ";
+	std::cout << std::endl;
+}
+
+int	main()
+{
+	copy_arr_to_vec_and_list();
 }

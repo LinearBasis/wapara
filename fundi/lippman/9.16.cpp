@@ -1,13 +1,17 @@
 #include <vector>
 #include <list>
+#include <iostream>
 
-bool	is_equal_vec(std::vector <int> vec1, std::list <int> vec2)
+bool	is_equal_vec_and_lst(std::vector <int> vec, std::list <int> lst)
 {
-	if (vec1.size() != vec2.size())
+	if (vec.size() != lst.size())
 		return (false);
 	std::vector <int> :: iterator	iter_vec;
 	std::list<int>::iterator		iter_lst;
-	while (iter_vec != vec1.end())
+
+	iter_vec = vec.begin();
+	iter_lst = lst.begin();
+	while (iter_vec != vec.end() && iter_lst != lst.end())
 	{
 		if (*iter_vec != *iter_lst)
 			return (false);
@@ -15,4 +19,11 @@ bool	is_equal_vec(std::vector <int> vec1, std::list <int> vec2)
 		iter_vec++;
 	}
 	return (true);
+}
+
+int	main()
+{
+	std::vector <int>	vec{1, 2, 3, 5, 4};
+	std::list <int>		lst{1, 2, 3, 4, 5};
+	std::cout << is_equal_vec_and_lst(vec, lst) << std::endl;
 }

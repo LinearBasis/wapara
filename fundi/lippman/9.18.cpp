@@ -13,5 +13,15 @@ std::deque <std::string>	read_deque()
 		ans.push_back(*iter);
 		iter++;
 	}
+	for (auto &i : ans)
+	{
+		std::cout << i << " ";
+	}
+	std::cout << std::endl;
 	return (ans);
+}
+
+int	main()
+{
+	read_deque();
 }

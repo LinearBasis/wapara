@@ -18,4 +18,19 @@ void	read_deque(std::list <int> lst)
 			even.push_back(*iter);
 		iter++;
 	}
+	std::cout << "ODD:" << std::endl;
+	for (auto i : odd)
+		std::cout << i << " ";
+	std::cout << std::endl;
+
+	std::cout << "EVEN:" << std::endl;
+	for (auto i : even)
+		std::cout << i << " ";
+	std::cout << std::endl;
+}
+
+int	main()
+{
+	std::list <int> lst {1, 2, 3, 4, 5, 6, 7};
+	read_deque(lst);
 }

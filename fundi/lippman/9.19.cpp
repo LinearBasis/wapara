@@ -13,5 +13,15 @@ std::list	<std::string>	read_list()	// НЕОБХОДИМОЕ ИЗМЕНЕНИЕ
 		ans.push_back(*iter);
 		iter++;
 	}
+	for (auto &i : ans)
+	{
+		std::cout << i << " ";
+	}
+	std::cout << std::endl;
 	return (ans);
+}
+
+int	main()
+{
+	read_list();
 }

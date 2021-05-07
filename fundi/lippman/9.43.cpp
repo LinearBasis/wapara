@@ -25,6 +25,8 @@ std::string		replace_substr(std::string str, std::string from, std::string to)
 				str.insert(iter_str, to.begin(), to.end());
 				iter_str += to.size();
 			}
+			else
+				iter_str++;
 		}
 		else
 			iter_str++;
@@ -34,5 +36,5 @@ std::string		replace_substr(std::string str, std::string from, std::string to)
 
 int	main()
 {
-	std::cout << replace_substr("abc 123 abc", "abc", "aabc123") << std::endl;
+	std::cout << replace_substr("abc 123 abcabc", "abc", "aabc") << std::endl;
 }
