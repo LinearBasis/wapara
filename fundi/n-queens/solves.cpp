@@ -5,7 +5,7 @@ void	Solve::print()
 {
 	for (int i = 0; i < solve.size(); i++)
 	{
-		std::cout << (char)(solve[i] + 'a') << ":" << i << " ";
+		std::cout << (char)(solve[i] + 'a') << ":" << i + 1 << " ";
 	}
 	std::cout << std::endl;
 }
@@ -264,8 +264,11 @@ std::vector <Solve>	create_all_solve(std::vector <Solve> vec)
 
 void	print_all_solve(std::vector <Solve> vec)
 {
-	for (auto &i : vec)
-		i.print();
+	for (int i = 0; i < vec.size(); i++)
+	{
+		std::cout << "#" << i + 1 << "\t - ";
+		vec[i].print();
+	}
 }
 
 int	main()
@@ -279,9 +282,11 @@ int	main()
 	ans1 = create_all_solve(ans1);		//	ТУТ ПОВОРОТЫ И ОТРАЖЕНИЯ, НО ОНИ БЕСПОЛЕЗНЫ
 	ans2 = create_all_solve(ans2);		//	РЕАЛИЗОВАЛ ЧИСТО ЧТОБЫ РЕАЛИЗОВАТЬ
 
-
-	std::cout << "___" << std::endl;
-	std::cout << "ANSES REC - " << ans1.size() << std::endl;
-	std::cout << "ANSES ITER - " << ans2.size() << std::endl;
+	std::cout << "SOLVE1:" << std::endl;
+	print_all_solve(ans1);
+	std::cout << "SOLVE2:" << std::endl;
+	print_all_solve(ans2);
+	std::cout << "NUM OF ANSES WITH REC - " << ans1.size() << std::endl;
+	std::cout << "NUM OF ANSES WITH ITER - " << ans2.size() << std::endl;
 }
 
