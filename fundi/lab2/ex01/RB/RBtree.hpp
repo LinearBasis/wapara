@@ -1,12 +1,59 @@
 #pragma once
 
 #include "RBtree_.hpp"
-
+#include <queue>
+#include <vector>
 
 template <class T>
 RBtree<T>::RBtree(Comparator<T> *_comp) : Btree<T>(_comp)
 {
 	node = nullptr;
+}
+
+template <class T>
+bool		RBtree<T>::is_rbtree()
+{
+	int		i;
+	std::vector <std::pair <int, RBNode<T>* > >	vec;
+	vec.push_back(std::make_pair(0, this->node));
+
+	i = 0;
+	while (1)
+	{
+		if (vec[i].second)
+		{
+			if (vec[i].second->color == BLACK)
+			{
+				vec.push_back(std::make_pair(vec[i].first + 1, vec[i].second->left));
+				vec.push_back(std::make_pair(vec[i].first + 1, vec[i].second->right));
+			}
+			else
+			{
+				vec.push_back(std::make_pair(vec[i].first, vec[i].second->left));
+				vec.push_back(std::make_pair(vec[i].first, vec[i].second->right));
+			}
+			vec.erase(vec.begin() + i);
+			i = 0;
+		}
+		else
+		{
+			i++;
+		}
+		if (i == vec.size())
+		{
+			break ;
+		}
+	}
+
+	i = vec[0].first;
+	for (int j = 1; j < vec.size(); j++)
+	{
+		if (vec[1].first != i)
+			return (false);
+	}
+	return (true);
+
+
 }
 
 template <class T>
@@ -73,25 +120,12 @@ void	RBtree<T>::right_rotation(RBNode<T> **node)
 }
 
 
-
 template <class T>
-void	RBtree<T>::stan
-
-template <class T>
-void	RBtree<T>::add(T &&data)
+RBNode<T>	*RBtree<T>::naive_add(T &&data)
 {
 	RBNode<T>	*cpy = this->node;
 	int			comp;
-
-	if (this->node == nullptr)
-	{
-		this->node = new RBNode<T>(data, BLACK);
-		// print_node(node, 1);
-		return ;
-	}
-	// printf("______BEFORE ADDING BEFORE BALANSING\n");
-	// print_node(node, 1);
-
+	
 	while (cpy)
 	{
 		comp = this->comp->compare(data, cpy->data);
@@ -118,6 +152,21 @@ void	RBtree<T>::add(T &&data)
 			}
 		}
 	}
+	return (cpy);
+}
+
+template <class T>
+void	RBtree<T>::add(T &&data)
+{
+	RBNode<T>	*cpy;
+
+	if (this->node == nullptr)
+	{
+		this->node = new RBNode<T>(data, BLACK);
+		return ;
+	}
+
+	cpy = this->naive_add(static_cast<int&&>(data));
 	this->check_cases(cpy);
 	while (cpy->prev)
 		cpy = cpy->prev;
@@ -184,21 +233,13 @@ bool	RBtree<T>::check_case3(RBNode<T> *added)
 		if (getColor(added) == BLACK && getColor(added->right) == BLACK &&
 			getColor(added->left) == RED && getColor(added->left->left) == RED)
 		{
-			printf("%p\t%p\t%p\n", added, added->left, added->right);
-			printf("added->left->data - %d\n", added->left->data);
 			right_rotation(&added);
-			printf("added->data - %d\n", added->data);
 			added->color = BLACK;
 			if (added->right)
-			{
 				added->right->color = RED;
-				printf("added->right->data - %d\n", added->right->data);
-			}
 			if (added->left)
-			{
-				printf("added->left->data - %d\n", added->left->data);
 				added->left->color = RED;
-			}
+
 			check_case1(added);
 			return (true);
 		}
