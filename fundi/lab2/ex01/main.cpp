@@ -11,9 +11,33 @@ int	main()
 {
 	Comparator_int		bef;
 	RBtree<int>			asd(&bef);
-	std::vector <int>	data = {7, 4, 8, 10, 2, 9, 8, 8, 8};
+	std::vector <int>	data;
+
+
+
+	for (int i = 0; i < 20; i++)
+	{
+		data.push_back(i);
+		std::cout << data[i] << " ";
+	}
+
+	std::cout << std::endl;
+	
 	for (auto i : data)
-		asd.add(static_cast<int&&>(i));
-	std::cout << asd.is_rbtree();
+	{
+		asd.add(static_cast<int &&>(i));
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		asd.del(static_cast<int &&>(data[rand() % data.size()]));
+	}
+
+
+	asd.print();
+	if (asd.is_rbtree())
+		std::cout << "IS RBTREE" << std::endl;
+	else
+		std::cout << "IS NOT RBTREE" << std::endl;
 	std::cout << std::endl;
 }
