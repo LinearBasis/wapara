@@ -2,19 +2,26 @@
 # include <iostream>
 # include "AVL/AVLtree.hpp"
 # include <vector>
+# include "relation/Relation.hpp"
 
-class Comparator_int : public Comparator<int>
+class Comparator_int : public Comparator<int*>
 {
-	int compare(const int &a, const int &b) const override {return (a - b);};
+	int compare(int* const &a, int* const &b) const override {return (*a - *b);};
 };
 
 
+class Comparator_int2 : public Comparator<int*>
+{
+	int compare(int* const &a, int* const &b) const override {return (*b);};
+};
+
 int	main()
 {
-	Comparator_int		bef;
-	RBtree<int>			asd(&bef);
+	Comparator_int		bef1;
+	Comparator_int2		bef2;
+	RBtree<int*>		asd1(&bef1);
+	AVLtree<int*>		asd2(&bef1);
 	std::vector <int>	data;
-
 
 
 	for (int i = 0; i < 20; i++)
@@ -24,24 +31,24 @@ int	main()
 	}
 
 	std::cout << std::endl;
-	
-	for (auto i : data)
+
+	Relation<int>		rel;
+
+	for (int i = 0; i < 5; i++)
+		rel.insert_data(static_cast<int &&>(data[i]));
+	rel.print_data();
+	rel.insert_index(&asd1);
+	rel.insert_index(&asd2);
+	for (int i = 5; i < 20; i++)
 	{
-		asd.add(static_cast<int &&>(i));
+		std::cout << data[i] << " ";
+		rel.insert_data(static_cast<int &&>(data[i]));
 	}
-
-	for (int i = 0; i < 8; i++)
-	{
-		asd.del(static_cast<int &&>(data[rand() % data.size()]));
-	}
-
-
-	asd.print();
-	if (asd.is_rbtree())
-		std::cout << "IS RBTREE" << std::endl;
-	else
-		std::cout << "IS NOT RBTREE" << std::endl;
 	std::cout << std::endl;
+	asd2.print();
+	asd1.print();
+
+
 }
 
 // int		main()

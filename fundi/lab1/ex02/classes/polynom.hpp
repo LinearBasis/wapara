@@ -15,7 +15,7 @@ public:
 	Polynomial();
 	Polynomial(const Polynomial& poly);
 	Polynomial(const std::string &poly_str);
-	virtual ~Polynomial();
+	~Polynomial();
 	Polynomial(std::list <Monomial> mons);
 	void	compress();							// ТО ЖЕ САМОЕ
 	Polynomial				create_from_str(std::string str); //ТО ЖЕ САМОЕ
@@ -25,12 +25,14 @@ public:
 	Polynomial&				operator*=(const Polynomial& poly);
 	Polynomial&				operator*=(int k);
 	Polynomial&				operator/=(char c);
+	Polynomial&				operator/=(char *c);
 
 	Polynomial				operator+(const Polynomial& poly) const;
 	Polynomial				operator-(const Polynomial& poly) const;
 	Polynomial				operator*(const Polynomial& poly) const;
 	Polynomial				operator*(int k) const;
 	Polynomial				operator/(char c) const;
+
 
 	friend std::ostream&	operator<<(std::ostream& fout, const Polynomial& poly);
 	friend std::istream&	operator>>(std::istream& fin, Polynomial& poly);
@@ -45,6 +47,7 @@ public:
 	friend bool				is_harmonic(const Polynomial &pol);
 
 };
+
 std::vector <std::vector <std::string> > parse_all_file_to_tex(std::istream &fin);
 std::string		parse_poly_expression_to_str(std::istream &fin);
 Polynomial		parse_poly_expression(std::istream &fin);

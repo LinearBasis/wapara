@@ -55,7 +55,7 @@ Matrix_square::Matrix_square(std::vector <std::vector <double> > vec)
 
 Matrix_square::~Matrix_square()
 {
-	free_mem();
+	
 }
 
 

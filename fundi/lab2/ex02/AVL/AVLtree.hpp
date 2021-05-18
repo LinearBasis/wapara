@@ -147,7 +147,7 @@ void		AVLtree<T>::print(AVLNode<T> *x, int i)
 		printf("\x1b[37;42m (null) \x1b[0m\n");
 		return ;
 	}
-	printf("\x1b[37;42m %d \x1b[0m \x1b[33;44m(%d)\x1b[0m\n", x->data, x->h);
+	printf("\x1b[37;42m %d \x1b[0m \x1b[33;44m(%d)\x1b[0m\n", *x->data, x->h);
 	print(x->left, i + 1);
 	print(x->right, i + 1);
 }
@@ -168,6 +168,7 @@ void		AVLtree<T>::print()
 	
 	print(this->node, 1);
 	std::cout << "MAX HIGH - " << this->node->h << std::endl;
+	std::cout << "IS AVLTREE - " << std::boolalpha << is_avltree() << std::endl;
 }
 
 template <class T>

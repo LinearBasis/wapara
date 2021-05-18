@@ -3,7 +3,7 @@
 #include "../strategy/Btree.hpp"
 
 template <class T>
-class AVLtree final : Btree<T>
+class AVLtree final : public Btree<T>
 {
 private:
 	AVLtree();

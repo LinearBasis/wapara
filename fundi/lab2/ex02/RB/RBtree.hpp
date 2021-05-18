@@ -49,7 +49,6 @@ bool		RBtree<T>::is_rbtree()
 	}
 
 	i = vec[0].first;
-	std::cout << "BH - " << i << std::endl;
 	for (int j = 1; j < vec.size(); j++)
 	{
 		if (vec[j].first != i)
@@ -163,7 +162,7 @@ void	RBtree<T>::add(T &&data)
 		this->node = new RBNode<T>(static_cast<T &&>(data), BLACK);
 		return ;
 	}
-	cpy = this->naive_add(static_cast<int&&>(data));
+	cpy = this->naive_add(static_cast<T &&>(data));
 	this->check_cases(cpy);
 	while (cpy->prev)
 		cpy = cpy->prev;
@@ -228,9 +227,7 @@ bool	RBtree<T>::check_case3(RBNode<T> *added)
 		if (getColor(added) == BLACK && getColor(added->right) == BLACK &&
 			getColor(added->left) == RED && getColor(added->left->left) == RED)
 		{
-			// printf("BEFORE ROTATE - %p, data - %d\n", added, added->data);
 			right_rotation(added);
-			// printf("AFTER ROTATE - %p, data - %d\n", added, added->data);
 			added = added->prev;
 			if (added)
 			{
@@ -249,9 +246,7 @@ bool	RBtree<T>::check_case3(RBNode<T> *added)
 		if (getColor(added) == BLACK && getColor(added->left) == BLACK &&
 			getColor(added->right) == RED && getColor(added->right->right) == RED)
 		{
-			// printf("BEFORE ROTATE - %p, data - %d, right - %p\n", added, added->data, added->right);
 			left_rotation((added));
-			// printf("AFTER ROTATE - %p, data - %d, left - %p\n", added, added->data, added->left);
 			added = added->prev;
 			added->color = BLACK;
 			added->right->color = RED;
@@ -562,9 +557,9 @@ void	print_node(RBNode <T> *node, int level)
 		return ;
 	}
 	if (node->color == RED)
-		printf("\x1b[37;41m %d \x1b[0m\n", node->data);
+		printf("\x1b[37;41m %d \x1b[0m\n", *node->data);
 	else
-		printf("\x1b[37;40m %d \x1b[0m\n", node->data);
+		printf("\x1b[37;40m %d \x1b[0m\n", *node->data);
 	print_node(node->left, level + 1);
 	print_node(node->right, level + 1);
 }
@@ -573,4 +568,5 @@ template <class T>
 void		RBtree<T>::print()
 {
 	print_node(this->node, 0);
+	std::cout << "IS RBTREE - " << std::boolalpha <<  is_rbtree() << std::endl;
 }

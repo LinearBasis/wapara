@@ -3,9 +3,9 @@
 # include "Relation_.hpp"
 
 template <class T>
-bool Relation<T>::search_data(T &&val)
+bool Relation<T>::search_data(const T &val)
 {
-	std::forward_list<Btree<T*> *>::iterator	iter;
+	typename std::forward_list<Btree<T*> *>::iterator	iter;
 
 	iter = trees.begin();
 
@@ -21,9 +21,7 @@ bool Relation<T>::search_data(T &&val)
 template <class T>
 void	Relation<T>::print_data()
 {
-	std::forward_list<T *>::iterator	iter;
-
-	iter = data.begin();
+	auto iter = data.begin();
 	while (iter != data.end())
 	{
 		std::cout << *iter << " ";
@@ -33,36 +31,48 @@ void	Relation<T>::print_data()
 }	
 
 template <class T>
-void	Relation<T>::insert_data(T &&val)
+void	Relation<T>::insert_data(const T &val)
 {
-	data.push_front(val);
-	for (auto &i : trees)
+	auto iter = trees.begin();
+	data.push_front(new T(val));
+	std::cout << val << "|";
+	while (iter != trees.end())
 	{
-		i->add(&(data.front()));
+		std::cout << val << "|";
+		(*iter)->add(static_cast<T *&&>(data.front()));
+		iter++;	
 	}
 }
 
 template <class T>
-void	Relation<T>::remove_data(T &&val)
+void	Relation<T>::remove_data(const T &val)
 {
-	data.remove(val);
+	auto iter = data.begin();
+	while (iter != data.end() || **iter != val)
+	{
+		iter++;
+	}
+	if (iter == data.end())
+		return ;
+
 	for (auto &i : trees)
 	{
-		i->del(val);
+		i->del(*iter);
 	}
+	delete *iter;
+	data.remove(iter);
 }
 
 template <class T>
 void	Relation<T>::insert_index(Btree<T*> *tree)
-{
-	std::forward_list<T>::iterator	iter;
-	
-	iter = data.begin();
+{	
+	auto iter = data.begin();
 	while (iter != data.end())
 	{
-		tree->add(iter);
+		tree->add(static_cast<T *&&>(*iter));
 		iter++;
 	}
+	trees.push_front(tree);
 }
 
 
