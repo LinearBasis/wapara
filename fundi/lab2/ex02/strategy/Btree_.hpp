@@ -57,7 +57,6 @@ class Btree
 protected:
 	Comparator<T>	*comp;
 
-	Btree(Btree &tree);
 public:
 	Btree(Comparator<T> *_comp);
 
