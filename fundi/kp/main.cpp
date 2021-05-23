@@ -1,6 +1,4 @@
-#include "fabric/fabric.hpp"
-#include "database/database.hpp"
-#include "list/list.hpp"
+#include "all_headers.hpp"
 
 int	main()
 {
@@ -10,7 +8,7 @@ int	main()
 
 	collection_forward_list<std::shared_ptr<ticket> >	col;
 
-	database 	base(&col, &fabr);
+	ticket_database 	base(&col, &fabr);
 
 	base.generate(20);
 	base.print();

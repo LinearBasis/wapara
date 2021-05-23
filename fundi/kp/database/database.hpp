@@ -1,20 +1,22 @@
 #pragma once
-#include "../fabric/fabric.hpp"
 #include "collection.hpp"
+#include "../fabric/fabric.hpp"
 
-class database
+class ticket_database
 {
 private:
-	database() {};
+	ticket_database() {};
 public:
 	void	print();
 	void	generate(int n);
+
 	std::shared_ptr<ticket>					winner;
+
 	collection<std::shared_ptr<ticket> >	*col;
 	ticket_fabric							*fabr;
 
-	database(collection<std::shared_ptr<ticket> > *_col, ticket_fabric *_fabr)
+	ticket_database(collection<std::shared_ptr<ticket> > *_col, ticket_fabric *_fabr)
 		 : col(_col), fabr(_fabr) {};
-	~database();
+	~ticket_database();
 };
 

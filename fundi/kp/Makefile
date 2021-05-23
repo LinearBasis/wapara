@@ -6,7 +6,7 @@ CC = g++
 
 CFLAGS = -Wall -Wextra -std=c++11
 
-SRCS_DIRS = ./database ./ticket .
+SRCS_DIRS = ./database ./ticket . ./fabric
 
 OBJS_DIR = ./objs
 

@@ -6,7 +6,7 @@ template <class T>
 class collection
 {
 protected:
-	friend class database;
+	friend class ticket_database;
 	virtual void print() const = 0;
 	collection();
 	~collection();
@@ -53,7 +53,7 @@ void	collection_forward_list<T>::del(const T &data)
 {
 	auto iter = lst.begin();
 	auto prev = lst.before_begin();
-	while (iter != lst.end())
+	while (iter != lst.end() && *iter != data)
 	{
 		iter++;
 		prev++;
@@ -67,7 +67,7 @@ template <class T>
 bool	collection_forward_list<T>::find(const T &data) const
 {
 	for (const auto iter : lst)
-		// if (data == iter)
+		if (data == iter)
 			return (true);
 	return (false);
 }
@@ -99,7 +99,6 @@ public:
 	void	add(const T &data) override;
 	void	del(const T &data) override;
 	bool	find(const T &data) const override;
-
 };
 
 template <class T>
@@ -117,20 +116,17 @@ void	collection_list<T>::del(const T &data)
 template <class T>
 bool	collection_list<T>::find(const T &data) const
 {
-	lst->find(data);
+	lst.find(data);
 }
 
 template <class T>
 void	collection_list<T>::print() const
 {
-	lst->print();
+	lst.print();
 }
-
-
-
 
 template <class T>
 void	collection_list<T>::clear()
 {
-	lst->clear();
+	lst.clear();
 }
