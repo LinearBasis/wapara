@@ -25,7 +25,7 @@ public:
 	Monomial(const Monomial& monom);
 	Monomial(const std::string &monom_str);
 	Monomial(std::map <char, int> pows, int n);
-	virtual ~Monomial();
+	~Monomial();
 
 	Monomial&				operator+=(const Monomial& monom);
 	Monomial&				operator-=(const Monomial& monom);
@@ -49,6 +49,3 @@ public:
 };
 
 std::string					get_token_from_i(std::string str, int &i, char delimeter);
-// std::vector <std::string>	tokenize_this_string(const std::string &str);
-// bool						check_tokenized_string(std::vector <std::string> tok);
-// std::vector <std::string>	tokenize_this_string(const std::string &str, char *delimeter);

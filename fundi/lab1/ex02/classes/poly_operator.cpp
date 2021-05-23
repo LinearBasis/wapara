@@ -50,6 +50,19 @@ Polynomial&				Polynomial::operator/=(char c)
 	return (*this);
 }
 
+Polynomial&				Polynomial::operator/=(char *c)
+{
+
+	while (*c)
+	{
+		for (auto &i : monoms)
+			i /= *c;
+		c++;
+	}
+	clear_zeroes();
+	return (*this);
+}
+
 Polynomial				Polynomial::operator+(const Polynomial& poly) const
 {
 	Polynomial	ans(*this);

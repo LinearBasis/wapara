@@ -1,6 +1,6 @@
 #include <iostream>
 
-class BEAST
+class BEAST			// ЭТО СОЗДАНО, ЧТОБЫ УБРАТЬ ВИРТУАЛЬНЫЕ КОНСТРУКТОРЫ
 {
 public:
 	BEAST() { std::cout << "BEAST CREATED" << std::endl;}
@@ -26,11 +26,11 @@ void	delete_all_cats(BEAST *parent1, BEAST *parent2)
 
 void	f()
 {
-	cat *child = new cat;
-	BEAST *parent1 = new BEAST;
-	BEAST *parent2 = child;
+	cat *cat_ = new cat;
+	BEAST *beast1 = new BEAST;
+	BEAST *beast2 = cat_;
 
-	delete_all_cats(parent1, parent2);
+	delete_all_cats(beast1, beast2);
 }
 
 int	main()

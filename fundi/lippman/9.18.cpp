@@ -14,9 +14,7 @@ std::deque <std::string>	read_deque()
 		iter++;
 	}
 	for (auto &i : ans)
-	{
 		std::cout << i << " ";
-	}
 	std::cout << std::endl;
 	return (ans);
 }
