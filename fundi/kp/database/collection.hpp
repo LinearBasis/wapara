@@ -3,43 +3,12 @@
 #include "../list/list.hpp"
 
 template <class T>
-class collection
-{
-protected:
-	friend class		ticket_database;
-
-	virtual void print() const = 0;
-	collection();
-	~collection();
-public:
-	virtual void			add(const T &data) = 0;
-	virtual void			del(const T &data) = 0;
-	virtual bool			find(const T &data) const = 0;
-	virtual void			clear() = 0;
-
-	virtual std::iterator<std::bidirectional_iterator_tag, T>	begin() = 0;
-	virtual std::iterator<std::bidirectional_iterator_tag, T>	end() = 0;
-};
-
-template <class T>
-collection<T>::collection(/* args */)
-{
-}
-
-template <class T>
-collection<T>::~collection()
-{
-
-}
-
-
-template <class T>
-class collection_forward_list : public collection<T>
+class collection_forward_list
 {
 private:
 	std::forward_list<T>	lst;
 public:
-	class Iterator_forward_list : public std::iterator<std::bidirectional_iterator_tag, T>
+	class Iterator_forward_list
 	{
 	private:
 		typename std::forward_list<T>::iterator	it;
@@ -50,7 +19,6 @@ public:
 			it = iter;
 		}
 		bool		operator==(Iterator_forward_list iter)
-
 		{
 			return (iter.it == this->it);
 		}
@@ -73,17 +41,17 @@ public:
 			return (*it);
 		}
 	};
-	
-	void			clear() override;
-	void			print() const override;
-	void			add(const T &data) override;
-	void			del(const T &data) override;
-	bool			find(const T &data) const override;
+ 
+	void			clear();
+	void			print() const;
+	void			add(const T &data);
+	void			del(const T &data);
+	bool			find(const T &data) const;
 
 
 
-	std::iterator<std::bidirectional_iterator_tag, T>	begin() override;
-	std::iterator<std::bidirectional_iterator_tag, T>	end() override;
+	Iterator_forward_list	begin();
+	Iterator_forward_list	end();
 };
 
 template <class T>
@@ -134,36 +102,36 @@ void	collection_forward_list<T>::clear()
 
 
 template <class T>
-std::iterator<std::bidirectional_iterator_tag, T>	collection_forward_list<T>::begin()
+typename collection_forward_list<T>::Iterator_forward_list	collection_forward_list<T>::begin()
 {
-	return (static_cast<std::iterator<std::bidirectional_iterator_tag, T> >(Iterator_forward_list(lst.begin())));
+	return ((Iterator_forward_list(lst.begin())));
 }
 
 
 template <class T>
-std::iterator<std::bidirectional_iterator_tag, T>	collection_forward_list<T>::end()
+typename collection_forward_list<T>::Iterator_forward_list	collection_forward_list<T>::end()
 {
-	return (static_cast<std::iterator<std::bidirectional_iterator_tag, T> >(Iterator_forward_list(lst.end())));
+	return ((Iterator_forward_list(lst.end())));
 
 }
 
 
 
 template <class T>
-class collection_list : public collection<T>
+class collection_list
 {
 private:
 	list<T>	lst;
 
 public:
-	void	clear() override;
-	void	print() const override;
-	void	add(const T &data) override;
-	void	del(const T &data) override;
-	bool	find(const T &data) const override;
+	void	clear();
+	void	print() const;
+	void	add(const T &data);
+	void	del(const T &data);
+	bool	find(const T &data) const;
 	
-	std::iterator<std::bidirectional_iterator_tag, T>	begin() override;
-	std::iterator<std::bidirectional_iterator_tag, T>	end() override;
+	typename list<T>::Iterator	begin();
+	typename list<T>::Iterator	end();
 };
 
 template <class T>
@@ -197,14 +165,14 @@ void	collection_list<T>::clear()
 }
 
 template <class T>
-std::iterator<std::bidirectional_iterator_tag, T>	collection_list<T>::begin()
+typename list<T>::Iterator	collection_list<T>::begin()
 {
 	return (lst.begin());
 }
 
 
 template <class T>
-std::iterator<std::bidirectional_iterator_tag, T>	collection_list<T>::end()
+typename list<T>::Iterator	collection_list<T>::end()
 {
 	return (lst.end());
 }

@@ -40,7 +40,7 @@ private:
 	int		_size;
 
 public:
-	class Iterator : public std::iterator<std::bidirectional_iterator_tag, T>
+	class Iterator
 	{
 	private:
 		node<T> *curr;
@@ -58,12 +58,6 @@ public:
 		{
 			curr = curr->next;
 			return (*this);
-		}
-		Iterator	operator++(T)
-		{
-			Iterator res(curr);
-			curr = curr->next;
-			return (res);
 		}
 		Iterator&	operator--()
 		{
@@ -90,7 +84,7 @@ public:
 	void	pop_back();
 	void	del(const T &data);
 	int		size() {return (_size);};
-	void	print();
+	void	print() const;
 	void	clear();
 };
 
@@ -233,7 +227,7 @@ list<T>::~list()
 }
 
 template <class T>
-void	list<T>::print()
+void	list<T>::print() const
 {
 	node<T>	*cpy;
 

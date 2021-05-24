@@ -1,17 +1,10 @@
 #include "ticket.hpp"
 #define FIXED_WIN 50
-
-ticket_6_49::ticket_6_49() : ticket()
-{
-}
-
-ticket_6_49::~ticket_6_49()
-{
-}
+#include <set>
 
 std::ostream&	operator<<(std::ostream &fout, const ticket &tick)
 {
-	fout << "№" << tick.number_of_ticket << " " << (int)tick.size << " : ";
+	fout << "№" << tick.id << " " << (int)tick.size << " : ";
 	for (int i = 0; i < tick.size; i++)
 	{
 		fout << (int)tick.numbers[i] << " ";
@@ -22,7 +15,7 @@ std::ostream&	operator<<(std::ostream &fout, const ticket &tick)
 
 std::ostream&	operator<<(std::ostream &fout, const std::shared_ptr<ticket> &tick)
 {
-	fout << "№" << tick->number_of_ticket << " " << (int)tick->size << " : ";
+	fout << "№" << tick->id << " " << (int)tick->size << " : ";
 	for (int i = 0; i < tick->size; i++)
 	{
 		fout << (int)tick->numbers[i] << " ";
@@ -31,21 +24,18 @@ std::ostream&	operator<<(std::ostream &fout, const std::shared_ptr<ticket> &tick
 	return (fout);
 }
 
-int						check_win(const ticket &tick, const ticket &winner)
+int			check_win(const ticket &tick, const ticket &winner)
 {
-	std::unordered_set <unsigned char>	set;
+	std::set <unsigned char>	set;
 
 	int		counter = 0;
-
-	for (int i = 0; i < winner.get_size(); i++)
-	{
+	int		i;
+	
+	for (i = 0; i < winner.get_size(); i++)
 		set.insert(winner.get_numbers(i));
-	}
-	for (int i = 0; i < tick.get_size(); i++)
-	{
+	for (i = 0; i < tick.get_size(); i++)
 		if (set.count(tick.get_numbers(i)))
 			counter++;
-	}
 	return (counter);
 }
 
