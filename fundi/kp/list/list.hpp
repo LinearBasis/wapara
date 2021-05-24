@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iterator>
+
 template <class T>
 class node
 {
@@ -38,17 +40,17 @@ private:
 	int		_size;
 
 public:
-	class Iterator
+	class Iterator : public std::iterator<std::bidirectional_iterator_tag, T>
 	{
 	private:
 		node<T> *curr;
 	public:
 		Iterator(node<T> *node) {curr = node;};
-		bool		operator==(const Iterator& iter)
+		bool		operator==(Iterator iter)
 		{
 			return (iter.curr == this->curr);
 		}
-		bool		operator!=(const Iterator& iter)
+		bool		operator!=(Iterator iter)
 		{
 			return (iter.curr != this->curr);
 		}
@@ -56,6 +58,12 @@ public:
 		{
 			curr = curr->next;
 			return (*this);
+		}
+		Iterator	operator++(T)
+		{
+			Iterator res(curr);
+			curr = curr->next;
+			return (res);
 		}
 		Iterator&	operator--()
 		{

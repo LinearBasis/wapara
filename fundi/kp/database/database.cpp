@@ -23,6 +23,13 @@ void	ticket_database::print_statistic_by_winners()
 		return ;
 	}
 	int	cnt = 0;
+	std::iterator<std::bidirectional_iterator_tag, std::shared_ptr<ticket> > it = col->begin();
+
+	std::cout << *it << std::endl;
+	while (it != col->end())
+	{
+			
+	}
 }
 
 void	ticket_database::generate(int n)

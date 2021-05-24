@@ -16,4 +16,14 @@ int	main()
 	base.print();
 	std::cout << sizeof(ticket) << std::endl;
 
+	// for (int i = 0; i < 20; i++)
+	// {
+	// 	asd.push_back(i);
+	// }
+	// list<int>::Iterator iter = asd.begin();
+	// while (iter != asd.end())
+	// {
+	// 	std::cout << *iter << std::endl;
+	// 	iter++;
+	// }
 }
