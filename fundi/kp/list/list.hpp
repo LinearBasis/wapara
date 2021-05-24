@@ -8,7 +8,9 @@ private:
 	T		data;
 	node<T>	*prev;
 	node<T>	*next;
+
 	node() {};
+
 public:
 	node(const T &_data);
 	~node();
@@ -34,6 +36,41 @@ private:
 	node<T>	*begin_node;
 	node<T>	*end_node;
 	int		_size;
+
+public:
+	class Iterator
+	{
+	private:
+		node<T> *curr;
+	public:
+		Iterator(node<T> *node) {curr = node;};
+		bool		operator==(const Iterator& iter)
+		{
+			return (iter.curr == this->curr);
+		}
+		bool		operator!=(const Iterator& iter)
+		{
+			return (iter.curr != this->curr);
+		}
+		Iterator&	operator++()
+		{
+			curr = curr->next;
+			return (*this);
+		}
+		Iterator&	operator--()
+		{
+			curr = curr->prev;
+			return (*this);
+		}
+		T&			operator*()
+		{
+			return (curr->data);
+		}
+	};
+
+	Iterator	begin() { return Iterator(begin_node);}
+	Iterator	end() { return Iterator(nullptr);}
+	Iterator	before_end() { return Iterator(end_node);}
 
 public:
 	list(/* args */);
@@ -175,7 +212,7 @@ void	list<T>::clear()
 	{
 		prev = cpy;
 		cpy = cpy->next;
-		delete cpy;
+		delete prev;
 	}
 	begin_node = end_node = nullptr;
 }

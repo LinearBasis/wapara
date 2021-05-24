@@ -36,7 +36,6 @@ int						check_win(const ticket &tick, const ticket &winner)
 	std::unordered_set <unsigned char>	set;
 
 	int		counter = 0;
-	int		begin_ans = winner.get_size();
 
 	for (int i = 0; i < winner.get_size(); i++)
 	{
@@ -47,9 +46,7 @@ int						check_win(const ticket &tick, const ticket &winner)
 		if (set.count(tick.get_numbers(i)))
 			counter++;
 	}
-	if (counter)
-		return (FIXED_WIN * std::pow(begin_ans, counter - 1));
-	return (0);
+	return (counter);
 }
 
 

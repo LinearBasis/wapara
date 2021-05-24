@@ -7,6 +7,7 @@ class collection
 {
 protected:
 	friend class ticket_database;
+
 	virtual void print() const = 0;
 	collection();
 	~collection();
@@ -34,6 +35,7 @@ class collection_forward_list : public collection<T>
 {
 private:
 	std::forward_list<T>	lst;
+	
 public:
 	void	clear() override;
 	void	print() const override;
@@ -92,7 +94,8 @@ template <class T>
 class collection_list : public collection<T>
 {
 private:
-	list<T>	lst;
+	list<T>	lst;	
+
 public:
 	void	clear() override;
 	void	print() const override;
@@ -116,7 +119,7 @@ void	collection_list<T>::del(const T &data)
 template <class T>
 bool	collection_list<T>::find(const T &data) const
 {
-	lst.find(data);
+	return (lst.find(data));
 }
 
 template <class T>

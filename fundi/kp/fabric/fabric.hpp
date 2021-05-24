@@ -5,6 +5,8 @@
 #include <random>
 #include <iostream>
 #include <unordered_set>
+#include <memory>
+#include <cmath>
 
 class ticket_fabric
 {
@@ -12,7 +14,7 @@ protected:
 	ticket_fabric() {};
 
 public:
-	virtual std::shared_ptr<ticket>	create_ticket(int number) = 0;
+	virtual typename std::shared_ptr<ticket>	create_ticket(int number) = 0;
 	virtual std::shared_ptr<ticket>	create_win_ticket(int number) = 0;
 	virtual ~ticket_fabric() {};
 };

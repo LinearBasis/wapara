@@ -9,8 +9,12 @@ private:
 public:
 	void	print();
 	void	generate(int n);
+	void	print_statistic_by_winners();
+	bool	find_winner();
 
-	std::shared_ptr<ticket>					winner;
+	int		num_of_buyed_tickets;
+
+	std::shared_ptr<ticket>		winner;
 
 	collection<std::shared_ptr<ticket> >	*col;
 	ticket_fabric							*fabr;

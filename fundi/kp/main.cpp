@@ -1,4 +1,5 @@
 #include "all_headers.hpp"
+#include <unistd.h>
 
 int	main()
 {
@@ -11,5 +12,8 @@ int	main()
 	ticket_database 	base(&col, &fabr);
 
 	base.generate(20);
+	base.generate(10);
 	base.print();
+	std::cout << sizeof(ticket) << std::endl;
+
 }

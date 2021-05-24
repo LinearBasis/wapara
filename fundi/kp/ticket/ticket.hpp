@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <unordered_set>
+#include <cmath>
+#include <memory>
 
 class ticket
 {
