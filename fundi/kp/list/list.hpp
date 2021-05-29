@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iterator>
+
 template <class T>
 class node
 {
@@ -44,11 +46,11 @@ public:
 		node<T> *curr;
 	public:
 		Iterator(node<T> *node) {curr = node;};
-		bool		operator==(const Iterator& iter)
+		bool		operator==(Iterator iter)
 		{
 			return (iter.curr == this->curr);
 		}
-		bool		operator!=(const Iterator& iter)
+		bool		operator!=(Iterator iter)
 		{
 			return (iter.curr != this->curr);
 		}
@@ -82,7 +84,7 @@ public:
 	void	pop_back();
 	void	del(const T &data);
 	int		size() {return (_size);};
-	void	print();
+	void	print() const;
 	void	clear();
 };
 
@@ -225,7 +227,7 @@ list<T>::~list()
 }
 
 template <class T>
-void	list<T>::print()
+void	list<T>::print() const
 {
 	node<T>	*cpy;
 

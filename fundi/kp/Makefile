@@ -4,7 +4,7 @@ MAIN = main.cpp
 
 CC = g++
 
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -std=c++2a
 
 SRCS_DIRS = ./database ./ticket . ./fabric
 

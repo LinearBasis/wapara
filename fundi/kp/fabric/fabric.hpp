@@ -29,3 +29,12 @@ public:
 	~ticket_fabric_6_49();
 };
 
+class ticket_fabric_4_20 : public ticket_fabric
+{
+private:
+public:
+	ticket_fabric_4_20();
+	std::shared_ptr<ticket>	create_ticket(int number) override;
+	std::shared_ptr<ticket>	create_win_ticket(int number) override;
+	~ticket_fabric_4_20();
+};

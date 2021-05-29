@@ -7,13 +7,17 @@
 class ticket
 {
 	friend class ticket_fabric_6_49;
+	friend class ticket_fabric_5_36;
+	friend class ticket_fabric_4_20;
 
-	int				number_of_ticket;
+	template <template <class ...> class Collection> friend class ticket_database;
+
+	int				id;
 	unsigned char	size;
 	unsigned char	*numbers;
 
 
-	int						check_win(const ticket &tick, const ticket &winner);
+	friend int				check_win(const ticket &tick, const ticket &winner);
 	bool					operator==(const ticket &tick) const;
 	bool					operator!=(const ticket &tick) const;
 	friend std::ostream&	operator<<(std::ostream &fout, const ticket &tick);
@@ -35,7 +39,19 @@ class ticket_6_49 : public ticket
 	friend class ticket_fabric_6_49;
 public:
 
-
-	ticket_6_49();
-	~ticket_6_49();
+	ticket_6_49() {};
+	~ticket_6_49() {};
 };
+
+class ticket_4_20 : public ticket
+{
+	friend class ticket_fabric_4_20;
+public:
+
+	ticket_4_20() {};
+	~ticket_4_20() {};
+};
+
+
+
+//4-20 : (4 - 7) (1 - 20)

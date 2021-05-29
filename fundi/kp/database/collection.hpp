@@ -3,45 +3,55 @@
 #include "../list/list.hpp"
 
 template <class T>
-class collection
-{
-protected:
-	friend class ticket_database;
-
-	virtual void print() const = 0;
-	collection();
-	~collection();
-public:
-	virtual void	add(const T &data) = 0;
-	virtual void	del(const T &data) = 0;
-	virtual bool	find(const T &data) const = 0;
-	virtual void	clear() = 0;
-};
-
-template <class T>
-collection<T>::collection(/* args */)
-{
-}
-
-template <class T>
-collection<T>::~collection()
-{
-
-}
-
-
-template <class T>
-class collection_forward_list : public collection<T>
+class collection_forward_list
 {
 private:
 	std::forward_list<T>	lst;
-	
 public:
-	void	clear() override;
-	void	print() const override;
-	void	add(const T &data) override;
-	void	del(const T &data) override;
-	bool	find(const T &data) const override;
+	class Iterator_forward_list
+	{
+	private:
+		typename std::forward_list<T>::iterator	it;
+
+	public:
+		Iterator_forward_list(typename std::forward_list<T>::iterator iter)
+		{
+			it = iter;
+		}
+		bool		operator==(Iterator_forward_list iter)
+		{
+			return (iter.it == this->it);
+		}
+		bool		operator!=(Iterator_forward_list iter)
+		{
+			return (iter.it != this->it);
+		}
+		Iterator_forward_list	operator++()
+		{
+			++it;
+			return (*this);
+		}
+		Iterator_forward_list	operator--()
+		{
+			// it--;
+			return (*this);
+		}
+		T&						operator*()
+		{
+			return (*it);
+		}
+	};
+ 
+	void			clear();
+	void			print() const;
+	void			add(const T &data);
+	void			del(const T &data);
+	bool			find(const T &data) const;
+
+
+
+	Iterator_forward_list	begin();
+	Iterator_forward_list	end();
 };
 
 template <class T>
@@ -90,18 +100,38 @@ void	collection_forward_list<T>::clear()
 	lst.clear();
 }
 
+
 template <class T>
-class collection_list : public collection<T>
+typename collection_forward_list<T>::Iterator_forward_list	collection_forward_list<T>::begin()
+{
+	return ((Iterator_forward_list(lst.begin())));
+}
+
+
+template <class T>
+typename collection_forward_list<T>::Iterator_forward_list	collection_forward_list<T>::end()
+{
+	return ((Iterator_forward_list(lst.end())));
+
+}
+
+
+
+template <class T>
+class collection_list
 {
 private:
-	list<T>	lst;	
+	list<T>	lst;
 
 public:
-	void	clear() override;
-	void	print() const override;
-	void	add(const T &data) override;
-	void	del(const T &data) override;
-	bool	find(const T &data) const override;
+	void	clear();
+	void	print() const;
+	void	add(const T &data);
+	void	del(const T &data);
+	bool	find(const T &data) const;
+	
+	typename list<T>::Iterator	begin();
+	typename list<T>::Iterator	end();
 };
 
 template <class T>
@@ -133,3 +163,17 @@ void	collection_list<T>::clear()
 {
 	lst.clear();
 }
+
+template <class T>
+typename list<T>::Iterator	collection_list<T>::begin()
+{
+	return (lst.begin());
+}
+
+
+template <class T>
+typename list<T>::Iterator	collection_list<T>::end()
+{
+	return (lst.end());
+}
+
