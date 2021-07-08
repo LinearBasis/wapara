@@ -1,0 +1,8 @@
+[09.07.2021 1:28:10][trace]: File created
+[09.07.2021 1:28:10][debug]: Compiled successfully
+[09.07.2021 1:28:10][information]: =)
+[09.07.2021 1:28:10][warning]: Incorrect cast
+[09.07.2021 1:28:10][error]: Compilation fail
+[09.07.2021 1:28:10][critical]: SSD is damaged
+[09.07.2021 1:28:10][trace]: Deleted file
+[09.07.2021 1:28:10][information]: Processor - Intel Core i5 8250U
